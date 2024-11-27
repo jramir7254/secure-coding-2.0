@@ -1,0 +1,25 @@
+.multiple-choice-buttons {
+    -fx-background-color: rgb(174, 68, 90);
+    -fx-background-radius: 5px;
+}
+
+.side-panel {
+    -fx-background-color: rgb(69, 46, 85);
+    -fx-max-width: 100;
+}
+
+.primary-pane {
+    -fx-background-color: rgb(69, 46, 85);
+}
+
+.header-panel {
+    -fx-background-color: rgb(75, 67, 118);
+}
+
+.center-panel {
+    -fx-background-color: rgb(95, 67, 138);
+}
+
+.button-panel {
+    -fx-background-color: rgb(75, 67, 118);
+}

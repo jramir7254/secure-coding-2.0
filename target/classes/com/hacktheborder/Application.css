@@ -1,0 +1,73 @@
+.multiple-choice-buttons {
+    -fx-background-color: rgb(174, 68, 90);
+    -fx-background-radius: 5px;
+    -fx-pref-height: 25;
+    -fx-max-width: 200;
+    -fx-min-width: 200;
+    -fx-pref-width: 200;
+}
+
+.multiple-choice-buttons:selected {
+    -fx-background-color: rgb(235, 149, 166);
+    -fx-background-radius: 5px;
+    -fx-pref-height: 25;
+}
+
+.side-panel {
+    -fx-background-color: rgb(69, 46, 85);
+    -fx-pref-width: 200;
+    -fx-max-width:  200;
+    -fx-min-width:  200;
+
+}
+
+.primary-pane {
+    -fx-background-color: rgb(69, 46, 85);
+}
+
+
+.question-field {
+    -fx-max-width: 500;
+    -fx-min-width: 500;
+    -fx-pref-width: 500;
+    -fx-max-height: 50;
+    -fx-min-height: 50;
+    -fx-pref-height: 50;
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+    /* -fx-margin: 100; */
+}
+
+.code-area {
+    -fx-max-width: 500;
+    -fx-min-width: 500;
+    -fx-pref-width: 500;
+    -fx-max-height: 300;
+    -fx-min-height: 300;
+    -fx-pref-height: 300;
+    -fx-background-radius: 25;
+}
+
+.header-panel {
+    -fx-background-color: rgb(75, 67, 118);
+    -fx-max-height: 50;
+    -fx-min-height: 50;
+    -fx-pref-height: 50;
+}
+
+.center-panel {
+    -fx-background-color: rgb(95, 67, 138);
+    -fx-max-width: 800;
+    -fx-min-width: 800;
+    -fx-pref-width: 800;
+}
+
+.button-panel {
+    -fx-max-width: 500;
+    -fx-min-width: 500;
+    -fx-pref-width: 500;
+    -fx-max-height: 300;
+    -fx-min-height: 300;
+    -fx-pref-height: 300;
+    -fx-background-color: rgb(75, 67, 118);
+}
