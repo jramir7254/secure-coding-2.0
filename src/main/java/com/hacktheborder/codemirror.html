@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeMirror in JavaFX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/material-darker.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/clike/clike.js"></script>
+    <script>
+        let editor;
+        window.onload = function () {
+            editor = CodeMirror(document.getElementById("editor"), {
+                value: "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}",
+                mode: "text/x-java",
+                theme: "material-darker",
+                readOnly: false,
+                lineNumbers: true
+            });
+        };
+
+        //document.styleSheets[0].insertRule('.readonly { background: #f4f4f4; }', 0);
+        // Function to get editor content
+        function getEditorContent() {
+            return editor.getValue();
+        }
+
+        // Function to set editor content
+        function setEditorContent(value) {
+            editor.setValue(value);
+ 
+            for (let line = 0; line <= 3; line++) {
+                // Mark the line as read-only
+                editor.markText(
+                    { line: line, ch: 0 },
+                    { line: line + 1, ch: 0 },
+                    { readOnly: true, className: "readonly-line" }
+                );
+
+                // Apply background highlighting for the entire line
+                editor.addLineClass(line, "background", "readonly-line-highlight");
+            }
+        }
+        
+    </script>
+    <style>
+        #editor {
+            height: 100%;
+            width: 100%;
+        }
+
+        .CodeMirror {
+            background-color: #282c34; /* Example: Atom One Dark background */
+            color: #abb2bf;           /* Example: Atom One Dark text color */
+            font-weight: bold;
+        }
+
+        /* Custom class for read-only text (inline styling) */
+        .CodeMirror .readonly-line {
+           
+            pointer-events: none; /* Disable interactions */
+        }
+
+        /* Custom class for highlighting the entire line */
+        .CodeMirror .readonly-line-highlight {
+            background-color: #8a7d7d !important; /* Dark gray background */
+            opacity: 0.8; /* Optional: Add transparency */
+}
+
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor"></div>
+</body>
+</html>

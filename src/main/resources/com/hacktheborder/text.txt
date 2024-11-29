@@ -1,0 +1,9 @@
+public class Main {
+    public static void main(String[] args) {
+        double x = 12;
+    }
+
+    public static void method() {
+        System.out.println("pr statement");
+    }
+}
