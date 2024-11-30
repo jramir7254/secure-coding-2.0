@@ -10,6 +10,7 @@ public class MyFileReader {
             while(scan.hasNextLine()) {
                 sb.append(scan.nextLine()).append("\n");
             }
+            System.out.println("could read file");
             return sb.toString().replace("\\", "\\\\")  // Escape backslashes
             .replace("'", "\\'")    // Escape single quotes (if necessary)
             .replace("\n", "\\n")    // Escape newline characters

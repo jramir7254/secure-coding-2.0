@@ -5,6 +5,8 @@ module com.hacktheborder {
     requires org.fxmisc.richtext;
     requires com.gluonhq.richtextarea;
     requires javafx.web;
+    requires java.sql;
+    requires javafx.base;
     opens com.hacktheborder to javafx.fxml;
     exports com.hacktheborder;
     opens com.hacktheborder.controllers to javafx.fxml;

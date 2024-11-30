@@ -1,6 +1,10 @@
-com\hacktheborder\Controllers\Comp.class
+com\hacktheborder\controllers\MainMenuController.class
+com\hacktheborder\Main.class
+com\hacktheborder\controllers\CenterController.class
+com\hacktheborder\controllers\MainController.class
+com\hacktheborder\controllers\GameController.class
+com\hacktheborder\Question.class
+com\hacktheborder\utilities\SQLConnector.class
+com\hacktheborder\utilities\MyFileReader.class
 module-info.class
-com\hacktheborder\Test.class
-com\hacktheborder\Controllers\MainMenuController.class
-com\hacktheborder\MyFileReader.class
-com\hacktheborder\Controllers\Center.class
+com\hacktheborder\utilities\QuestionGenerator.class

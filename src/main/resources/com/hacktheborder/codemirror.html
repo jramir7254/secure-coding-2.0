@@ -15,13 +15,11 @@
                 value: "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}",
                 mode: "text/x-java",
                 theme: "material-darker",
-                readOnly: false,
+                readOnly: true,
                 lineNumbers: true
             });
         };
 
-        //document.styleSheets[0].insertRule('.readonly { background: #f4f4f4; }', 0);
-        // Function to get editor content
         function getEditorContent() {
             return editor.getValue();
         }
@@ -30,17 +28,17 @@
         function setEditorContent(value) {
             editor.setValue(value);
  
-            for (let line = 0; line <= 3; line++) {
-                // Mark the line as read-only
-                editor.markText(
-                    { line: line, ch: 0 },
-                    { line: line + 1, ch: 0 },
-                    { readOnly: true, className: "readonly-line" }
-                );
+            // for (let line = 0; line <= 3; line++) {
+            //     // Mark the line as read-only
+            //     editor.markText(
+            //         { line: line, ch: 0 },
+            //         { line: line + 1, ch: 0 },
+            //         { readOnly: true, className: "readonly-line" }
+            //     );
 
-                // Apply background highlighting for the entire line
-                editor.addLineClass(line, "background", "readonly-line-highlight");
-            }
+            //     // Apply background highlighting for the entire line
+            //     editor.addLineClass(line, "background", "readonly-line-highlight");
+            // }
         }
         
     </script>
@@ -54,11 +52,12 @@
             background-color: #282c34; /* Example: Atom One Dark background */
             color: #abb2bf;           /* Example: Atom One Dark text color */
             font-weight: bold;
+            font-size: 12px;
+            font-stretch: extra-condensed;
         }
 
         /* Custom class for read-only text (inline styling) */
         .CodeMirror .readonly-line {
-           
             pointer-events: none; /* Disable interactions */
         }
 
@@ -66,7 +65,7 @@
         .CodeMirror .readonly-line-highlight {
             background-color: #8a7d7d !important; /* Dark gray background */
             opacity: 0.8; /* Optional: Add transparency */
-}
+        }
 
         body {
             margin: 0;

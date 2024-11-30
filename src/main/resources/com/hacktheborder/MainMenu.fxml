@@ -6,14 +6,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="center" fx:id="center" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controllers.MainMenuController">
+<VBox id="center" fx:id="centerVBox" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controllers.MainMenuController">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="coverImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Untitled.png" />
          </image>
       </ImageView>
-      <TextField id="q-field" promptText="Team Name" />
-      <Button mnemonicParsing="false" styleClass="buttons" text="Button" />
+      <TextField id="q-field" fx:id="teamNameTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="Team Name" />
+      <Button fx:id="submitButton" mnemonicParsing="false" onMouseClicked="#submit" styleClass="buttons" text="Button" />
    </children>
 </VBox>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -7,55 +8,59 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
 
-<BorderPane id="main-pane" fx:id="mainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controllers.Comp">
+<BorderPane id="main-pane" fx:id="rootBorderPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controllers.MainController">
+   <bottom>
+      <HBox id="footer" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </bottom>
    <top>
-      <HBox id="header" fx:id="header" alignment="BASELINE_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+      <GridPane id="header" fx:id="headerGridPane" alignment="CENTER" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <GridPane alignment="CENTER" HBox.hgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Team:" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Question Time:" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Total Time:" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Current Score:" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Team High Score:" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+         </children>
+      </GridPane>
+   </top>
+   <left>
+      <VBox fx:id="leaderboardVBox" alignment="TOP_CENTER" styleClass="side-panel" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <Label alignment="CENTER" styleClass="side-labels" text="Leaderboard Top5" textFill="WHITE" />
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox fx:id="informationVBox" alignment="TOP_CENTER" styleClass="side-panel" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <Label fx:id="infoLabel" alignment="CENTER" onMouseClicked="#displayInfo" styleClass="side-labels" text="Information" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS" />
+            <GridPane id="info-grid" fx:id="informationGridPaneContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Team:" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Question TIme" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Total Time" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Current Score:" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Team High Score:" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <WebView fx:id="informationWebView" />
                </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
             </GridPane>
-         </children></HBox>
-   </top>
-   <bottom>
-      <HBox id="footer" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </bottom>
-   <left>
-      <BorderPane fx:id="lead" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
-         <center>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="side-panel" BorderPane.alignment="CENTER">
-               <children>
-                  <Label alignment="CENTER" styleClass="side-labels" text="Leaderboard Top5" textFill="WHITE" />
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
-   </left>
-   <right>
-      <BorderPane fx:id="info" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
-         <center>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="side-panel" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="infoLabel" alignment="CENTER" onMouseClicked="#addCenter" styleClass="side-labels" text="Information" textAlignment="CENTER" textFill="WHITE" />
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
+         </children>
+      </VBox>
    </right>
 </BorderPane>

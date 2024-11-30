@@ -51,6 +51,11 @@
 
 #button-panel {
     -fx-background-color: rgb(75, 67, 118);
+    -fx-background-radius: 20;
+}
+
+#info-grid {
+    border-radius: 10px;
 }
 
 .side-labels {
@@ -73,6 +78,14 @@
     -fx-background-color: rgb(235, 149, 166);
 }
 
+.buttons:hover {
+    -fx-background-color: rgb(235, 149, 166);
+}
+
 .side-panel {
     -fx-background-color: rgb(69, 46, 85);
+}
+
+* {
+    -fx-font-weight: bold;
 }

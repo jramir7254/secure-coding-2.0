@@ -1,0 +1,16 @@
+QUESTION_TYPE: Compile Time Error
+EXPECTED_OUTPUT: ss
+public class Main {
+    public static void main(String[] args) {
+        double x = 12;
+    }
+EDITABLE
+    public static void method() {
+        System.out.println("pr statement")
+    }
+END_EDITABLE
+    public static void otherMethod() {
+        
+    }
+}
+STOP
