@@ -1,9 +1,10 @@
-package com.hacktheborder.controllers;
+package com.hacktheborder.controller;
 
 import com.hacktheborder.utilities.AnimationEffects;
 import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
-import com.hacktheborder.Question;
+import com.hacktheborder.ApplicationManager.QuestionManager;
+import com.hacktheborder.model.Question;
 import com.hacktheborder.utilities.FileManager;
 import com.hacktheborder.utilities.ThreadRunner;
 
@@ -14,6 +15,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+
+@SuppressWarnings("exports")
 public class DebuggingController {
 
     @FXML
@@ -22,16 +25,16 @@ public class DebuggingController {
     @FXML
     public TextArea consoleOutputTextArea;
 
-    @FXML
+    @FXML 
     public HBox buttonHBoxContainer;
 
     @FXML
     public Button runButton;
 
-    @FXML
+    @FXML 
     public Button resetButton;
 
-    @FXML
+    @FXML 
     public Button nextQuestionButton;
 
     
@@ -76,6 +79,7 @@ public class DebuggingController {
         consoleOutputTextArea.setText(null);
         nextQuestionButton.setVisible(false);
         ApplicationManager.setupNextQuestion();
+        ApplicationManager.start();
     }
 
 
@@ -110,14 +114,16 @@ public class DebuggingController {
             runner.join();
             System.out.println("Waiting on Thread\n");
 
-            consoleOutputTextArea.setText(runner.getOutput());
+            consoleOutputTextArea.setText(runner.getRunProcessOutput());
             writer.deleteFile();
 
 
             if(validateOutput()) {
+                ApplicationManager.updateTeamScore();
                 nextQuestionButton.setVisible(true);
                 AnimationEffects.playShakeEffect(runButton, "#24e327", true, false);
             } else {
+                AnimationEffects.wrongAnswerPenalty();
                 AnimationEffects.playShakeEffect(runButton, "#e3210b", false, true);
             }
 
@@ -143,7 +149,7 @@ public class DebuggingController {
 
 
     public boolean validateOutput() {
-        Question currQuestion = ApplicationManager.currentQuestion;
+        Question currQuestion = QuestionManager.getCurrentQuestion();
         return consoleOutputTextArea.getText().trim().equals(currQuestion.getExpectedOutput());
     }
 }

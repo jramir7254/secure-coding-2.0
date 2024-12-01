@@ -1,6 +1,6 @@
-package com.hacktheborder.controllers;
+package com.hacktheborder.controller;
 
-import java.io.File;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,19 +8,24 @@ import java.util.List;
 
 import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
-import com.hacktheborder.Question;
+import com.hacktheborder.ApplicationManager.AnimationManager;
+import com.hacktheborder.ApplicationManager.QuestionManager;
+import com.hacktheborder.model.Question;
 import com.hacktheborder.utilities.AnimationEffects;
 
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 
+
+@SuppressWarnings("exports")
 public class MultipleChoiceController {
     @FXML
     public VBox buttonVBoxContainer;
@@ -59,7 +64,7 @@ public class MultipleChoiceController {
 
     private void setButtonLayout() {
 
-        for (javafx.scene.Node node : buttonVBoxContainer.getChildren()) {
+        for (Node node : buttonVBoxContainer.getChildren()) {
             if (node instanceof ToggleButton) {
                 ToggleButton button = (ToggleButton) node; 
                 button.prefWidthProperty().bind(Main.gameController.centerVBox.widthProperty().multiply(0.5));      
@@ -78,13 +83,18 @@ public class MultipleChoiceController {
 
         submitButton.prefWidthProperty().bind(Main.gameController.centerVBox.widthProperty().multiply(0.5));    
         submitButton.prefHeightProperty().bind(Main.gameController.centerVBox.heightProperty().multiply(0.015));   
+        submitButton.setOnAction(e -> validateAnswer());
         VBox.setMargin(submitButton, new Insets(20, 0, 5, 0));
 
     }
 
 
+
+
+
+
     public void resetButtons() {
-        for (javafx.scene.Node node : buttonVBoxContainer.getChildren()) {
+        for (Node node : buttonVBoxContainer.getChildren()) {
             if (node instanceof ToggleButton) {
                 ToggleButton button = (ToggleButton) node; 
                 button.setStyle("");    
@@ -98,33 +108,28 @@ public class MultipleChoiceController {
 
 
 
+    public void nextSection() {
+        ApplicationManager.displayDebuggingPanel();
+    }
 
 
 
-
-
-
-
-
-
-
-
-
-    public void clear() {
+    public void validateAnswer() {
         if (multipleChoiceSelection.getSelectedToggle() == null) {
             return;
         }
 
-        Question currQuestion = ApplicationManager.currentQuestion;
+    
         ToggleButton selectedButton = (ToggleButton) multipleChoiceSelection.getSelectedToggle();
         
-        if (!selectedButton.getText().equals(currQuestion.getQuestionType())) {
-            AnimationEffects.playShakeEffect(selectedButton, "#e3210b", false, false);
+        if (!selectedButton.getText().equals(QuestionManager.getCurrentQuestionAnswer())) {
+            AnimationManager.animateWrongAnswerChoice(selectedButton);
             shuffleMultipleChoiceButtons();
-            AnimationEffects.wrongAnswerPenalty();
+            
 
         } else {
-            AnimationEffects.playShakeEffect(selectedButton, "#24e327", true, false);
+            ApplicationManager.updateTeamScore();
+            AnimationManager.animateCorrectAnswerChoice(selectedButton);
             buttonVBoxContainer.getChildren().remove(submitButton);
             buttonVBoxContainer.getChildren().add(nextSectionButton);
         }
@@ -176,48 +181,24 @@ public class MultipleChoiceController {
 
 
 
-    public void displayEditableText() {
-        URL htmlFile = getClass().getResource("/com/hacktheborder/html/codemirror-editable.html");
-        WebEngine eng = Main.gameController.webEngine;
 
-        eng.load(htmlFile.toExternalForm());
-    
-
-        String javaCode = ApplicationManager.getSanitizedJavaCode();
-        String non = ApplicationManager.currentQuestion.getNonEditableLines();
-
-        try {
-            eng.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-                if (newState == Worker.State.SUCCEEDED) {
-                    System.out.println("WebView content loaded successfully.");
-                    Main.gameController.webEngine.executeScript("setEditorContent('" + javaCode + "');" + "setEditable(" + non + ");");
-                }
-            });
-        } catch (Exception e) {
-            System.err.println("Exception Message from displayEditableText(): " + e.getMessage());
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void nextSection( ) {
-        Platform.runLater(() -> displayEditableText());
-        int index = Main.gameController.centerVBox.getChildren().indexOf(buttonVBoxContainer);
-        Main.gameController.centerVBox.getChildren().set(index, Main.debugging);
-
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,6 @@
-package com.hacktheborder;
+package com.hacktheborder.model;
 
 import java.io.Serializable;
-import java.nio.channels.NonReadableChannelException;
 
 public class Question implements Serializable {
     private String JAVA_CODE;

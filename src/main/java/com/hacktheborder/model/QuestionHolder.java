@@ -1,4 +1,4 @@
-package com.hacktheborder.utilities;
+package com.hacktheborder.model;
 
 import java.io.EOFException;
 import java.io.ObjectInputStream;
@@ -7,13 +7,11 @@ import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-import com.hacktheborder.Question;
-
-public class QuestionManager {
+public class QuestionHolder {
     Stack<Question> questions;
 
 
-    public QuestionManager() {
+    public QuestionHolder() {
         loadQuestions();
     }
 

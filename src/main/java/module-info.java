@@ -9,6 +9,6 @@ module com.hacktheborder {
     requires javafx.base;
     opens com.hacktheborder to javafx.fxml;
     exports com.hacktheborder;
-    opens com.hacktheborder.controllers to javafx.fxml;
-    exports com.hacktheborder.controllers;
+    opens com.hacktheborder.controller to javafx.fxml;
+    exports com.hacktheborder.controller;
 }

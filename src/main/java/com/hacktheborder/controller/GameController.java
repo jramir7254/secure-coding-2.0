@@ -1,11 +1,8 @@
-package com.hacktheborder.controllers;
+package com.hacktheborder.controller;
 
 import java.net.URL;
 
-import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
-import com.hacktheborder.utilities.AnimationEffects;
-
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -18,12 +15,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+
+@SuppressWarnings("exports")
 public class GameController {
 
+   
     @FXML
     public VBox centerVBox;
 
-    @FXML
+    @FXML 
     public HBox scoreHBoxContainer;
 
     @FXML
@@ -61,7 +61,6 @@ public class GameController {
 
     public void bindComponentsToMainPane(BorderPane mainPane) {
 
-
         webEngine = codeMirrorWebView.getEngine();
 
         centerVBox.prefWidthProperty().bind(mainPane.widthProperty().multiply(0.3));
@@ -84,12 +83,10 @@ public class GameController {
                
         Platform.runLater(() -> centerVBox.getChildren().add(Main.multipleChoice));
         
-        loadWebViewContent();
 
-        
-        Platform.runLater(() -> AnimationEffects.animateScoreTimer());
-        
     }
+
+
 
 
     public void displayMultipleChoice() {
@@ -105,8 +102,8 @@ public class GameController {
 
 
 
-    public String getOutput() {
-        return (String)webEngine.executeScript("getEditorContent()");            
+    public String getEditorContent() {
+        return (String) webEngine.executeScript("getEditorContent()");            
     }
 
 
@@ -119,29 +116,22 @@ public class GameController {
 
 
 
-    public void loadWebViewContent() {
+    public void loadWebViewContent(String htmlURLFile, String javaScriptCommand) {
         try {
        
-            URL htmlFile = getClass().getResource("/com/hacktheborder/html/codemirror-readonly.html");
-
-        
+            URL htmlFile = getClass().getResource(htmlURLFile);
 
             webEngine.load(htmlFile.toExternalForm());
-            //System.out.println("Loaded file: " + file);
-
-            String javaCode = ApplicationManager.getSanitizedJavaCode();
 
             webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
                 if (newState == Worker.State.SUCCEEDED) {
                     System.out.println("WebView content loaded successfully.");
-                    webEngine.executeScript(
-                        "setEditorContent('" + javaCode + "')"
-                    );
+                    webEngine.executeScript(javaScriptCommand);
                 }
             });
             
         } catch (Exception e) {
-            System.err.println("Exception message from loadWebViewContent: " + e.getMessage());
+            System.err.println("Exception message from loadWebViewContent(): " + e.getMessage());
         }
     }
 }

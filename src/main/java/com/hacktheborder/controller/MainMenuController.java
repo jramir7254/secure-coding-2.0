@@ -1,18 +1,19 @@
-package com.hacktheborder.controllers;
+package com.hacktheborder.controller;
 
+
+import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
-import com.hacktheborder.utilities.AnimationEffects;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+
+
+@SuppressWarnings("exports")
 
 public class MainMenuController {
 
@@ -28,8 +29,9 @@ public class MainMenuController {
     @FXML
     public Button submitButton;
 
+
     public void initialize() {
-       bindComponentsToMainPane(Main.mainController.rootBorderPane);
+        bindComponentsToMainPane(Main.mainController.rootBorderPane);
     }
 
 
@@ -46,15 +48,13 @@ public class MainMenuController {
     }
 
 
-    public void submit() {
-        try {
+    public String getTeamNameTextFieldText() {
+        return teamNameTextField.getText();
+    }
 
-            
-            Main.mainController.addCenter(Main.game);
-            System.out.println("added center");
-        
-        } catch (Exception e) {
-            System.err.println("Exception Message from submit(): " + e.getMessage());
-        }
+
+    public void submit() {
+        ApplicationManager.onMainMenuSubmitButtonPressed();
+        teamNameTextField.setText(null);
     }
 }

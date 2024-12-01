@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import java.util.Scanner;
 
-import com.hacktheborder.Question;
+import com.hacktheborder.model.Question;
 
 import java.io.File;
 import java.io.FileNotFoundException;

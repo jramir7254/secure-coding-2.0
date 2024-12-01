@@ -1,7 +1,7 @@
-package com.hacktheborder.controllers;
+package com.hacktheborder.controller;
 
 
-import java.io.File;
+
 import java.net.URL;
 
 import com.hacktheborder.Main;
@@ -17,13 +17,28 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 
-
+@SuppressWarnings("exports")
 public class MainController {
-    @FXML
+    @FXML 
     public BorderPane rootBorderPane;
 
-    @FXML
+    @FXML 
     public GridPane headerGridPane;
+
+    @FXML 
+    public Label teamHighScoreLabel;
+
+    @FXML 
+    public Label currentScoreLabel;
+
+    @FXML 
+    public Label teamLabel;
+
+    @FXML 
+    public Label questionTimeLabel;
+
+    @FXML 
+    public Label totalTimeLabel;
 
     @FXML
     public VBox leaderboardVBox;
@@ -31,29 +46,37 @@ public class MainController {
     @FXML
     public VBox informationVBox;
 
-    @FXML
+    @FXML 
     public Label infoLabel;
 
-    @FXML
+    @FXML 
     public GridPane informationGridPaneContainer;
 
     @FXML
     public WebView informationWebView;
 
 
+    
+
+    public void initializeLabels(String teamName) {
+        teamHighScoreLabel  .setText    ("Team High Score: " + 0);
+        currentScoreLabel   .setText    ("Current Score: " + 0);
+        teamLabel           .setText    ("Team: " + teamName);
+        questionTimeLabel   .setText    ("Question Time: 00:00");
+        totalTimeLabel      .setText    ("Total Time: 00:00");
+    }
+
+
 
 
     public void initialize() {
-
 
         BorderPane.setMargin(headerGridPane, new Insets(0, 0, 20, 0));
         headerGridPane.prefWidthProperty().bind(rootBorderPane.widthProperty().multiply(1));
         headerGridPane.prefHeightProperty().bind(rootBorderPane.heightProperty().multiply(0.05));
 
-
         leaderboardVBox.prefWidthProperty().bind(rootBorderPane.widthProperty().multiply(0.3));
         leaderboardVBox.prefHeightProperty().bind(rootBorderPane.heightProperty().multiply(0.7));
-
     
         informationVBox.prefWidthProperty().bind(rootBorderPane.widthProperty().multiply(0.3));
         informationVBox.prefHeightProperty().bind(rootBorderPane.heightProperty().multiply(0.7));
@@ -70,11 +93,13 @@ public class MainController {
     }
 
 
+    public void addCenter(Node node) {
+        rootBorderPane.setCenter(node);
+    }
 
 
     public void loadInformationWebViewContent() {
         try {
-
             WebEngine webEngine = informationWebView.getEngine();
             URL htmlFile = getClass().getResource("/com/hacktheborder/html/information.html");
             webEngine.load(htmlFile.toExternalForm());
@@ -89,15 +114,9 @@ public class MainController {
 
     public void displayInfo() {
         if (informationWebView.isVisible()) {
-            informationWebView.setVisible(false); // Hide if currently visible
+            informationWebView.setVisible(false); 
         } else {
-            informationWebView.setVisible(true);  // Show if currently hidden
+            informationWebView.setVisible(true);  
         }
-    }
-
-
-
-    public void addCenter(Node node) {
-        rootBorderPane.setCenter(node);
     }
 }
