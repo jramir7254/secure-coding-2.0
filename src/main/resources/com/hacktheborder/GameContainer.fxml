@@ -1,32 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
 <VBox id="center" fx:id="centerVBox" alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controllers.GameController">
    <children>
-      <TextField id="q-field" fx:id="questionTextField" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="What Type of Error is This?" />
-      <VBox id="web-cont" fx:id="webViewVBoxContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+      <TextField id="q-field" fx:id="questionTextField" alignment="CENTER" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="What Type of Error is This?" VBox.vgrow="NEVER" />
+      <HBox fx:id="webViewVBoxContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
          <children>
-            <WebView id="web-view" fx:id="codeMirrorWebView" VBox.vgrow="ALWAYS" />
+            <WebView id="web-view" fx:id="codeMirrorWebView" />
          </children>
-      </VBox>
-      <VBox id="button-panel" fx:id="buttonVBoxContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-         <children>
-            <ToggleButton mnemonicParsing="false" styleClass="buttons" text="Compile Time Error" textFill="WHITE">
-               <toggleGroup>
-                  <ToggleGroup fx:id="multipleChoiceSelection" />
-               </toggleGroup>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" styleClass="buttons" text="Runtime Error" textFill="WHITE" toggleGroup="$multipleChoiceSelection" />
-            <ToggleButton mnemonicParsing="false" styleClass="buttons" text="Logic Error" textFill="WHITE" toggleGroup="$multipleChoiceSelection" />
-            <ToggleButton mnemonicParsing="false" styleClass="buttons" text="Vulnerability" textFill="WHITE" toggleGroup="$multipleChoiceSelection" />
-            <Button fx:id="submitButton" mnemonicParsing="false" onMouseClicked="#clear" styleClass="buttons" text="Submit" textFill="WHITE" />
-         </children>
-      </VBox>
+      </HBox>
    </children>
 </VBox>

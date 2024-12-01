@@ -17,8 +17,6 @@ public class SQLConnector {
             System.err.println("could not connect");
         }
     }
-
-    
 }
 
 

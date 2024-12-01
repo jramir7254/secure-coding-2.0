@@ -1,14 +1,32 @@
-QUESTION_TYPE: Compile Time Error
-EXPECTED_OUTPUT: ss
+QUE: Compile Time Error
+EXP: pr statement
+NON: 0, 4, 8, 12
 public class Main {
     public static void main(String[] args) {
-        double x = 12;
+        method();
     }
-EDITABLE
+
     public static void method() {
         System.out.println("pr statement")
     }
-END_EDITABLE
+
+    public static void otherMethod() {
+        
+    }
+}
+STOP
+QUE: Runtime Error
+EXP: the other one
+NON: 0, 4, 8, 12
+public class Main {
+    public static void main(String[] args) {
+        method();
+    }
+
+    public static void method() {
+        System.out.println("the other one")
+    }
+
     public static void otherMethod() {
         
     }

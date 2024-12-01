@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class MainMenuController implements CenterController {
+public class MainMenuController {
 
     @FXML
     public VBox centerVBox;
@@ -26,6 +26,10 @@ public class MainMenuController implements CenterController {
 
     @FXML
     public Button submitButton;
+
+    public void initialize() {
+       bindComponentsToMainPane(Main.mainController.rootBorderPane);
+    }
 
 
     public void bindComponentsToMainPane(BorderPane mainPane) {
@@ -45,7 +49,7 @@ public class MainMenuController implements CenterController {
         try {
 
             
-            Main.mainController.addCenter("/com/hacktheborder/GameContainer.fxml");
+            Main.mainController.addCenter(Main.game);
             System.out.println("added center");
 
         } catch (Exception e) {

@@ -58,6 +58,12 @@
     border-radius: 10px;
 }
 
+#console {
+    -fx-font-weight: none;
+
+    -fx-font-size: 12px; 
+}
+
 .side-labels {
     -fx-background-color: rgb(235, 149, 166);
     -fx-background-radius: 10px;
@@ -69,9 +75,16 @@
     -fx-pref-height: 25;
 }
 
+.text-area {
+    -fx-control-inner-background: #2E2E2E; /* Dark gray background */
+    -fx-text-fill: #FFFFFF;               /* White text color */
+                 /* Optional: Adjust font size */
+}
+
 .buttons {
     -fx-background-color: rgb(174, 68, 90);
     -fx-background-radius: 5px;
+    -fx-text-fill: white;
 }
 
 .buttons:selected {
@@ -85,6 +98,8 @@
 .side-panel {
     -fx-background-color: rgb(69, 46, 85);
 }
+
+
 
 * {
     -fx-font-weight: bold;

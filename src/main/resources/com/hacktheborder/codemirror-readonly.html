@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeMirror Partial Editable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/material-darker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/clike/clike.js"></script>
+    <script>
+        let editor;
+
+        window.onload = function () {
+            editor = CodeMirror(document.getElementById("editor"), {
+                mode: "text/x-java",
+                theme: "material-darker",
+                readOnly: true, // Allow cursor movement
+                lineNumbers: true
+            });
+        };
+
+        function setEditorContent(value) {
+            if (editor) {
+                editor.setValue(value);
+            }
+        }
+
+    </script>
+    <style>
+        #editor {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .CodeMirror {
+            background-color: #282c34; /* Atom One Dark background */
+                 /* Atom One Dark text color */
+        }
+    </style>
+</head>
+<body>
+    <div id="editor"></div>
+</body>
+</html>

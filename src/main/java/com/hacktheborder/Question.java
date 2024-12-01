@@ -1,20 +1,19 @@
 package com.hacktheborder;
 
 import java.io.Serializable;
+import java.nio.channels.NonReadableChannelException;
 
 public class Question implements Serializable {
     private String JAVA_CODE;
-    private final String EDITABLE_SECTION;
     private final String EXPECTED_OUTPUT;
     private final String QUESTION_TYPE;
-    private final String JS_SCRIPT;
+    private final String NON_EDITABLE_LINES;
 
-    public Question(String questionType, String expectedOutput, String javaCode, String editableSection) {
+    public Question(String questionType, String expectedOutput, String javaCode, String nonEditableLines) {
         this.JAVA_CODE = javaCode;
         this.EXPECTED_OUTPUT = expectedOutput;
-        this.EDITABLE_SECTION = editableSection;
         this.QUESTION_TYPE = questionType;
-        this.JS_SCRIPT = "line";
+        this.NON_EDITABLE_LINES= nonEditableLines;
     }
 
     public String getJavaCode() {
@@ -25,7 +24,18 @@ public class Question implements Serializable {
         return this.QUESTION_TYPE;
     }
 
-    public String getEditableSection() {
-        return this.EDITABLE_SECTION;
+    public String getExpectedOutput() {
+        return this.EXPECTED_OUTPUT;
+    }
+
+    public String getNonEditableLines() {
+        return this.NON_EDITABLE_LINES;
+    }
+
+    public String toString() {
+        return "Question Type: " + QUESTION_TYPE +
+               "\nExpected Output: " + EXPECTED_OUTPUT + 
+               "\nNon-Editable Lines: " + NON_EDITABLE_LINES + 
+               "\nJava Code:\n" + JAVA_CODE;
     }
 }

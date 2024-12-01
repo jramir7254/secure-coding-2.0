@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="button-panel" fx:id="centerVBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controllers.DebuggingController">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+         <children>
+            <TextArea id="console" fx:id="consoleOutputTextArea" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" wrapText="true" />
+         </children>
+      </Pane>
+      <HBox fx:id="buttonHBoxContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="NEVER">
+         <children>
+            <Button fx:id="runButton" mnemonicParsing="false" styleClass="buttons" text="Run" />
+            <Button fx:id="resetButton" mnemonicParsing="false" styleClass="buttons" text="Reset" />
+         </children>
+      </HBox>
+      <Button fx:id="nextQuestionButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" styleClass="buttons" text="Next Question" visible="false" VBox.vgrow="NEVER" />
+   </children>
+</VBox>

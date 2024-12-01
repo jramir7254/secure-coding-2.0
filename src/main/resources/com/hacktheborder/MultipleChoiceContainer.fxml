@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="button-panel" fx:id="buttonVBoxContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controllers.MultipleChoiceController">
+   <children>
+      <ToggleButton mnemonicParsing="false" styleClass="buttons" text="Compile Time Error" textFill="WHITE">
+         <toggleGroup>
+            <ToggleGroup fx:id="multipleChoiceSelection" />
+         </toggleGroup>
+      </ToggleButton>
+      <ToggleButton mnemonicParsing="false" styleClass="buttons" text="Runtime Error" textFill="WHITE" toggleGroup="$multipleChoiceSelection" />
+      <ToggleButton mnemonicParsing="false" styleClass="buttons" text="Logic Error" textFill="WHITE" toggleGroup="$multipleChoiceSelection" />
+      <ToggleButton mnemonicParsing="false" styleClass="buttons" text="Vulnerability" textFill="WHITE" toggleGroup="$multipleChoiceSelection" />
+      <Button fx:id="submitButton" mnemonicParsing="false" onMouseClicked="#clear" styleClass="buttons" text="Submit" textFill="WHITE" />
+   </children>
+</VBox>

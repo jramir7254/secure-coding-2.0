@@ -38,7 +38,7 @@
    <left>
       <VBox fx:id="leaderboardVBox" alignment="TOP_CENTER" styleClass="side-panel" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Label alignment="CENTER" styleClass="side-labels" text="Leaderboard Top5" textFill="WHITE" />
+            <Label alignment="CENTER" styleClass="side-labels" text="Leaderboard Top 5" textFill="WHITE" />
          </children>
       </VBox>
    </left>
@@ -54,7 +54,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <WebView fx:id="informationWebView" />
+                  <WebView fx:id="informationWebView" visible="false" />
                </children>
                <padding>
                   <Insets bottom="10.0" top="10.0" />

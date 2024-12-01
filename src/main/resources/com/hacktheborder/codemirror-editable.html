@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeMirror Partial Editable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/material-darker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/clike/clike.js"></script>
+    <script>
+        let editor;
+
+        window.onload = function () {
+            editor = CodeMirror(document.getElementById("editor"), {
+                mode: "text/x-java",
+                theme: "material-darker",
+                readOnly: false, // Allow cursor movement
+                lineNumbers: true
+            });
+        };
+
+        function getEditorContent() {
+            return editor.getValue();
+        }
+
+        function setEditorContent(value) {
+            if (!editor) {
+                console.error("Editor is not initialized.");
+                return;
+            }
+
+            editor.setValue(value);
+        }
+
+
+
+        function setEditable(startx, endx, starty, endy) {
+            if (!editor) {
+                console.error("Editor is not initialized.");
+                return;
+            }
+
+
+
+            editor.markText(
+                { line: startx, ch: 0 },
+                { line: endx + 1, ch: 0 },
+                { readOnly: true, className: "non-editable-region" }
+            );
+
+
+
+            editor.markText(
+                { line: starty, ch: 0 },
+                { line: endy + 1, ch: 0 },
+                { readOnly: true, className: "non-editable-region" }
+            );
+
+
+
+            for (let line = startx; line <= endx; line++) {
+                editor.addLineClass(line, "background", "non-editable-line-highlight");
+            }
+
+
+
+            for (let line = starty; line <= endy; line++) {
+                editor.addLineClass(line, "background", "non-editable-line-highlight");
+            }
+        }
+    </script>
+    <style>
+        #editor {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .CodeMirror {
+            background-color: #282c34; /* Atom One Dark background */
+        }
+
+        /* Custom class for highlighting the editable lines */
+        .non-editable-line-highlight {
+            background-color: #4c504f;
+        }
+
+
+        .non-editable-region {
+            background-color: #4c504f;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor"></div>
+</body>
+</html>
