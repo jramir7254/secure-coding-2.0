@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -7,6 +8,11 @@
 
 <VBox id="center" fx:id="centerVBox" alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controllers.GameController">
    <children>
+      <HBox fx:id="scoreHBoxContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+         <children>
+            <Label fx:id="questionScoreLabel" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="WHITE" />
+         </children>
+      </HBox>
       <TextField id="q-field" fx:id="questionTextField" alignment="CENTER" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="What Type of Error is This?" VBox.vgrow="NEVER" />
       <HBox fx:id="webViewVBoxContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
          <children>

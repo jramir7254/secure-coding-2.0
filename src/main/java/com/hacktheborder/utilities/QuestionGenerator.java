@@ -1,7 +1,7 @@
 package com.hacktheborder.utilities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Scanner;
 
 import com.hacktheborder.Question;

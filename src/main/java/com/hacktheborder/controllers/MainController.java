@@ -2,6 +2,7 @@ package com.hacktheborder.controllers;
 
 
 import java.io.File;
+import java.net.URL;
 
 import com.hacktheborder.Main;
 import javafx.application.Platform;
@@ -73,15 +74,11 @@ public class MainController {
 
     public void loadInformationWebViewContent() {
         try {
+
             WebEngine webEngine = informationWebView.getEngine();
-
-            File file = new File("secure-coding\\src\\main\\resources\\com\\hacktheborder\\information.html");
-
-            if (file.exists()) {
-                webEngine.load(file.toURI().toString());
-                System.out.println("Loaded file: " + file.toURI());
-            }
-
+            URL htmlFile = getClass().getResource("/com/hacktheborder/html/information.html");
+            webEngine.load(htmlFile.toExternalForm());
+                
         } catch (Exception e) {
             System.err.println("Exception message from loadWebViewContent: " + e.getMessage());
         }

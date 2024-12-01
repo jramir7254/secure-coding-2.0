@@ -1,16 +1,16 @@
 package com.hacktheborder.controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+import java.net.URL;
 
 import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
-import com.hacktheborder.Question;
+import com.hacktheborder.utilities.AnimationEffects;
+
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -22,6 +22,12 @@ public class GameController {
 
     @FXML
     public VBox centerVBox;
+
+    @FXML
+    public HBox scoreHBoxContainer;
+
+    @FXML
+    public Label questionScoreLabel;
 
     @FXML
     public TextField questionTextField;
@@ -55,10 +61,14 @@ public class GameController {
 
     public void bindComponentsToMainPane(BorderPane mainPane) {
 
+
         webEngine = codeMirrorWebView.getEngine();
 
         centerVBox.prefWidthProperty().bind(mainPane.widthProperty().multiply(0.3));
         centerVBox.prefHeightProperty().bind(mainPane.heightProperty().multiply(0.7));
+
+        scoreHBoxContainer.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.7));
+        scoreHBoxContainer.prefHeightProperty().bind(centerVBox.heightProperty().multiply(0.025));
 
         VBox.setMargin(questionTextField, new Insets(20));
         questionTextField.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.7));
@@ -75,6 +85,9 @@ public class GameController {
         Platform.runLater(() -> centerVBox.getChildren().add(Main.multipleChoice));
         
         loadWebViewContent();
+
+        
+        Platform.runLater(() -> AnimationEffects.animateScoreTimer());
         
     }
 
@@ -108,24 +121,25 @@ public class GameController {
 
     public void loadWebViewContent() {
         try {
-            File file = new File("secure-coding\\src\\main\\resources\\com\\hacktheborder\\codemirror-readonly.html");
+       
+            URL htmlFile = getClass().getResource("/com/hacktheborder/html/codemirror-readonly.html");
 
-            if (file.exists()) {
+        
 
-                webEngine.load(file.toURI().toString());
-                System.out.println("Loaded file: " + file.toURI());
+            webEngine.load(htmlFile.toExternalForm());
+            //System.out.println("Loaded file: " + file);
 
-                String javaCode = ApplicationManager.getSanitizedJavaCode();
+            String javaCode = ApplicationManager.getSanitizedJavaCode();
 
-                webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-                    if (newState == Worker.State.SUCCEEDED) {
-                        System.out.println("WebView content loaded successfully.");
-                        webEngine.executeScript(
-                            "setEditorContent('" + javaCode + "')"
-                        );
-                    }
-                });
-            } 
+            webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+                if (newState == Worker.State.SUCCEEDED) {
+                    System.out.println("WebView content loaded successfully.");
+                    webEngine.executeScript(
+                        "setEditorContent('" + javaCode + "')"
+                    );
+                }
+            });
+            
         } catch (Exception e) {
             System.err.println("Exception message from loadWebViewContent: " + e.getMessage());
         }

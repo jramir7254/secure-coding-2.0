@@ -1,8 +1,6 @@
 package com.hacktheborder.utilities;
 
 import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +40,7 @@ public class QuestionManager {
     private ArrayList<Question> getQuestions() {
         ArrayList<Question> temp = new ArrayList<>(10);
 
-        try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream(new File("secure-coding\\src\\main\\resources\\com\\hacktheborder\\Question.ser")))) {
+        try(ObjectInputStream oos = new ObjectInputStream(getClass().getResourceAsStream("/com/hacktheborder/Question.ser"))) {
             while (true) {
                 try {
                     temp.add((Question)oos.readObject());             

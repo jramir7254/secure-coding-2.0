@@ -1,6 +1,6 @@
 package com.hacktheborder.controllers;
 
-import com.hacktheborder.ApplicationManager.AnimationEffects;
+import com.hacktheborder.utilities.AnimationEffects;
 import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
 import com.hacktheborder.Question;

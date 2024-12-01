@@ -1,6 +1,7 @@
 package com.hacktheborder.controllers;
 
 import com.hacktheborder.Main;
+import com.hacktheborder.utilities.AnimationEffects;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -51,7 +52,7 @@ public class MainMenuController {
             
             Main.mainController.addCenter(Main.game);
             System.out.println("added center");
-
+        
         } catch (Exception e) {
             System.err.println("Exception Message from submit(): " + e.getMessage());
         }

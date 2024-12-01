@@ -1,6 +1,7 @@
 package com.hacktheborder.controllers;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
 import com.hacktheborder.Question;
-import com.hacktheborder.ApplicationManager.AnimationEffects;
+import com.hacktheborder.utilities.AnimationEffects;
 
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
@@ -110,7 +111,6 @@ public class MultipleChoiceController {
 
 
     public void clear() {
-   
         if (multipleChoiceSelection.getSelectedToggle() == null) {
             return;
         }
@@ -121,6 +121,7 @@ public class MultipleChoiceController {
         if (!selectedButton.getText().equals(currQuestion.getQuestionType())) {
             AnimationEffects.playShakeEffect(selectedButton, "#e3210b", false, false);
             shuffleMultipleChoiceButtons();
+            AnimationEffects.wrongAnswerPenalty();
 
         } else {
             AnimationEffects.playShakeEffect(selectedButton, "#24e327", true, false);
@@ -176,31 +177,24 @@ public class MultipleChoiceController {
 
 
     public void displayEditableText() {
-        File file = new File("secure-coding\\src\\main\\resources\\com\\hacktheborder\\codemirror-editable.html");
+        URL htmlFile = getClass().getResource("/com/hacktheborder/html/codemirror-editable.html");
+        WebEngine eng = Main.gameController.webEngine;
 
-        if (file.exists()) {
-            WebEngine eng = Main.gameController.webEngine;
+        eng.load(htmlFile.toExternalForm());
+    
 
-            eng.load(file.toURI().toString());
-            System.out.println("Loaded file: " + file.toURI());
+        String javaCode = ApplicationManager.getSanitizedJavaCode();
+        String non = ApplicationManager.currentQuestion.getNonEditableLines();
 
-            String javaCode = ApplicationManager.getSanitizedJavaCode();
-
-            String non = ApplicationManager.currentQuestion.getNonEditableLines();
-
-            try {
-                eng.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-                    if (newState == Worker.State.SUCCEEDED) {
-                        System.out.println("WebView content loaded successfully.");
-                        Main.gameController.webEngine.executeScript("setEditorContent('" + javaCode + "');" + "setEditable(" + non + ");");
-                        //Main.gameController.webEngine.executeScript("setEditable(" + non + ")");
-                    }
-                });
-            } catch (Exception e) {
-                System.err.println("Exception Message from displayEditableText(): " + e.getMessage());
-            }
-           
-
+        try {
+            eng.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+                if (newState == Worker.State.SUCCEEDED) {
+                    System.out.println("WebView content loaded successfully.");
+                    Main.gameController.webEngine.executeScript("setEditorContent('" + javaCode + "');" + "setEditable(" + non + ");");
+                }
+            });
+        } catch (Exception e) {
+            System.err.println("Exception Message from displayEditableText(): " + e.getMessage());
         }
     }
 

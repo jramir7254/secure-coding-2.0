@@ -52,37 +52,4 @@ public class ApplicationManager {
         .replace("\r", "");   
     }
 
-
-    public static class AnimationEffects {
-            public static void playShakeEffect(Node button, String color, boolean correct, boolean reset) {
-                if (button instanceof Region) {
-                    ((Region) button).setStyle("-fx-background-color: " + color + ";");
-                }
-                // Scale up transition
-                ScaleTransition scaleUp = new ScaleTransition(Duration.millis(250), button);
-                scaleUp.setToX(1.1); // Increase width by 10%
-                scaleUp.setToY(1.1); // Increase height by 10%
-    
-                // Shake effect (left-right movement)
-                TranslateTransition shake = new TranslateTransition(Duration.millis(50), button);
-                if(!correct) {
-                    shake.setByX(10); // Move 10px to the right
-                    shake.setCycleCount(6); // Repeat 6 times
-                    shake.setAutoReverse(true); // Move back and forth
-                }
-    
-                // Scale down transition
-                ScaleTransition scaleDown = new ScaleTransition(Duration.millis(150), button);
-                scaleDown.setToX(1.0); // Return to normal width
-                scaleDown.setToY(1.0); // Return to normal height
-    
-                if(reset) {
-                    scaleDown.setOnFinished(e -> button.setStyle(""));
-                }
-
-                // Combine all transitions
-                SequentialTransition sequentialTransition = new SequentialTransition(scaleUp, shake, scaleDown);
-                sequentialTransition.play();
-            }
-    }
 }

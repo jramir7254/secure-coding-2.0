@@ -60,27 +60,27 @@ public class Main extends Application {
             System.out.println("Loading FXML files...");
 
             // Use a single FXMLLoader for each FXML
-            FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
+            FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("fxml/Main.fxml"));
             main = mainLoader.load();
             mainController = mainLoader.getController();
 
-            FXMLLoader menuLoader = new FXMLLoader(Main.class.getResource("MainMenu.fxml"));
+            FXMLLoader menuLoader = new FXMLLoader(Main.class.getResource("fxml/MainMenu.fxml"));
             mainMenu = menuLoader.load();
             mainMenuController = menuLoader.getController();
 
-            FXMLLoader gameLoader = new FXMLLoader(Main.class.getResource("GameContainer.fxml"));
+            FXMLLoader gameLoader = new FXMLLoader(Main.class.getResource("fxml/GameContainer.fxml"));
             game = gameLoader.load();
             gameController = gameLoader.getController();
 
-            FXMLLoader multipleChoiceLoader = new FXMLLoader(Main.class.getResource("MultipleChoiceContainer.fxml"));
+            FXMLLoader multipleChoiceLoader = new FXMLLoader(Main.class.getResource("fxml/MultipleChoiceContainer.fxml"));
             multipleChoice = multipleChoiceLoader.load();
             multipleChoiceController = multipleChoiceLoader.getController();
 
-            FXMLLoader debuggingLoader = new FXMLLoader(Main.class.getResource("DebuggingContainer.fxml"));
+            FXMLLoader debuggingLoader = new FXMLLoader(Main.class.getResource("fxml/DebuggingContainer.fxml"));
             debugging = debuggingLoader.load();
             debuggingController = debuggingLoader.getController();
 
-            FXMLLoader endGameScreenLoader = new FXMLLoader(Main.class.getResource("EndGameScreen.fxml"));
+            FXMLLoader endGameScreenLoader = new FXMLLoader(Main.class.getResource("fxml/EndGameScreen.fxml"));
             endGame = endGameScreenLoader.load();
             endGameScreenController = endGameScreenLoader.getController();
 
