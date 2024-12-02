@@ -76,6 +76,8 @@
 }
 
 .text-area {
+    -fx-prompt-text-fill: rgb(136, 133, 133);
+    -fx-prompt-text-size: 12px;
     -fx-control-inner-background: #2E2E2E; /* Dark gray background */
     -fx-text-fill: #FFFFFF;               /* White text color */
                  /* Optional: Adjust font size */

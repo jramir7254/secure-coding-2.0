@@ -18,6 +18,6 @@ com\hacktheborder\ApplicationManager.class
 com\hacktheborder\ApplicationManager$AnimationManager.class
 com\hacktheborder\model\QuestionHolder$1.class
 com\hacktheborder\controller\MainMenuController.class
+com\hacktheborder\utilities\TeamData.class
 com\hacktheborder\utilities\QuestionGenerator.class
-com\hacktheborder\utilities\ScoreCalculator.class
 com\hacktheborder\model\Question.class

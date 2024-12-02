@@ -10,7 +10,7 @@
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
          <children>
-            <TextArea id="console" fx:id="consoleOutputTextArea" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" wrapText="true" />
+            <TextArea id="console" fx:id="consoleOutputTextArea" accessibleRole="TEXT_FIELD" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" wrapText="true" />
          </children>
       </Pane>
       <HBox fx:id="buttonHBoxContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="NEVER">

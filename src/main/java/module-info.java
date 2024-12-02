@@ -7,6 +7,9 @@ module com.hacktheborder {
     requires javafx.web;
     requires java.sql;
     requires javafx.base;
+    requires org.json;
+
+ 
     opens com.hacktheborder to javafx.fxml;
     exports com.hacktheborder;
     opens com.hacktheborder.controller to javafx.fxml;

@@ -12,7 +12,6 @@ import com.hacktheborder.model.QuestionHolder;
 import com.hacktheborder.model.Team;
 import com.hacktheborder.utilities.AnimationEffects;
 
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
@@ -55,6 +54,16 @@ public class ApplicationManager {
             return currentQuestion.getQuestionType();
         }
 
+        public static void updateMultipleChoiceWrongAttempts() {
+            currentQuestion.updateMultipleChoiceWrongAttempts();
+        }
+
+        public static void updateDebuggingAttempts(String debuggingAttempt, boolean correct) {
+            if(!correct)
+                currentQuestion.updateDebuggingWrongAttempts();
+            currentQuestion.addDebugingAttempt(debuggingAttempt);
+        }
+
         public static String getSanitizedJavaCode() {
             return currentQuestion.getJavaCode()
             .replace("\\", "\\\\") 
@@ -67,8 +76,27 @@ public class ApplicationManager {
 
 
     public static class TeamManager {
+
+        public static void setupCurrentTeam(String teamName) {
+            currentTeam = new Team(teamName, 0, 0);
+            MAIN_CONTROLLER.initializeLabels(teamName.toUpperCase());
+        }
+
+        public static void addQuestionData() {
+            currentTeam.currentTeamData.addQuestionData(currentQuestion);
+        }
+
         public static Team getCurrentTeam() {
             return currentTeam;
+        }
+
+        public static void updateTeamScore() {
+            currentTeam.updateCurrentScore(AnimationEffects.getCurrentQuestionScore());
+            AnimationManager.animateAndResetTimelineAndScore();
+        }
+
+        public static void printTeamData() {
+            System.out.println(currentTeam.currentTeamData);
         }
     }
 
@@ -82,6 +110,20 @@ public class ApplicationManager {
 
         public static void animateCorrectAnswerChoice(Node node) {
             AnimationEffects.playShakeEffect(node, "#24e327", true, false);
+        }
+
+        public static void animateAndResetTimelineAndScore() {
+            AnimationEffects.animateUpdatedTeamScore(currentTeam.getCurrentGameScore());
+            AnimationEffects.stopAndResetQuestionAndScoreTimelines();
+        }
+
+        public static void restartQuestionAndScoreTimelines() {
+            AnimationEffects.startQuestionScoreTimeline();
+            AnimationEffects.startQuestionTimer();
+        }
+
+        public static void stopAllTimelines() {
+            AnimationEffects.stopAllTimelines();
         }
     }
 
@@ -101,80 +143,74 @@ public class ApplicationManager {
             String code = String.format("setEditorContent('%s'); setEditable(%s);", QuestionManager.getSanitizedJavaCode(), currentQuestion.getNonEditableLines());
             GAME_CONTROLLER.loadWebViewContent(EDITABLE_HTML_FILE, code);
         }
+
+        public static String getCodeMirrorText() {
+            return GAME_CONTROLLER.getEditorContent();
+        }
+
+        public static void displayDebuggingPanel() {
+            displayEditableHTMLFile();
+            int index = GAME_CONTROLLER.centerVBox.getChildren().indexOf(MULTIPLE_CHOICE_CONTROLLER.buttonVBoxContainer);
+            GAME_CONTROLLER.centerVBox.getChildren().set(index, DEBUGGING_PANEL);
+            GAME_CONTROLLER.setTextToDebug();
+            DEBUGGING_CONTROLLER.setTextToDebug(currentQuestion.getExpectedOutput());
+            AnimationManager.restartQuestionAndScoreTimelines();
+        }
+
+        public static void resetCodeArea() {
+            displayEditableHTMLFile();
+        }
     }
 
 
-    public static void displayDebuggingPanel() {
-        GameControllerManager.displayEditableHTMLFile();
-        int index = GAME_CONTROLLER.centerVBox.getChildren().indexOf(MULTIPLE_CHOICE_CONTROLLER.buttonVBoxContainer);
-        GAME_CONTROLLER.centerVBox.getChildren().set(index, DEBUGGING_PANEL);
-        GAME_CONTROLLER.questionTextField.setText("Fix the code so it produces the following output.");
-        ApplicationManager.start();
-    }
+
 
 
     public static void onMainMenuSubmitButtonPressed() {
         MAIN_CONTROLLER.addCenter(GAME_PANEL);
         GameControllerManager.displayReadOnlyHTMLFile();
-        AnimationEffects.animateQuestionTime();
-        AnimationEffects.animateTotalTime();
-        AnimationEffects.animateScoreTimer();
-        setupCurrentTeam(MAIN_MENU_CONTROLLER.getTeamNameTextFieldText());
+        AnimationEffects.startAllTimelines();
+        TeamManager.setupCurrentTeam(MAIN_MENU_CONTROLLER.getTeamNameTextFieldText());
     }
 
 
     public static void initialize() {
         
         currentQuestion = QUESTION_HOLDER.getNextQuestion();
+        AnimationEffects.initialize();
     }
 
 
 
 
-    public static String getCodeMirrorText() {
-        return GAME_CONTROLLER.getEditorContent();
-    }
 
 
-    public static void setupCurrentTeam(String teamName) {
-        currentTeam = new Team(teamName, 0, 0);
-        MAIN_CONTROLLER.initializeLabels(teamName.toUpperCase());
-    }
 
 
-    public static void updateTeamScore() {
-        currentTeam.updateCurrentScore(AnimationEffects.score);
-        AnimationEffects.updateTeamScore();
-        AnimationEffects.stopQuestionTimer();
-        AnimationEffects.stopQuestionScoreTimeline();
-        AnimationEffects.resetQuestionScoreTimeline();
-        AnimationEffects.resetQuestionTimer();
 
-    }
 
-    public static void start() {
-        AnimationEffects.startQuestionScoreTimeline();
-        AnimationEffects.startQuestionTimer();
 
-    }
+
+   
 
 
 
 
     public static void setupNextQuestion() {
         if(!QUESTION_HOLDER.isEmpty()) {
+            AnimationManager.restartQuestionAndScoreTimelines();
             currentQuestion = QUESTION_HOLDER.getNextQuestion();
             GAME_CONTROLLER.displayMultipleChoice();
             MULTIPLE_CHOICE_CONTROLLER.resetButtons();
             GameControllerManager.displayReadOnlyHTMLFile();
         } else {
             MAIN_CONTROLLER.addCenter(END_GAME_PANEL);
+            AnimationManager.stopAllTimelines();
         }
     }
 
 
-    public static void resetCodeArea() {
-        GameControllerManager.displayEditableHTMLFile();
-    }
+
 
 }
+ 

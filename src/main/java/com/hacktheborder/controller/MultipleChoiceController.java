@@ -1,20 +1,18 @@
 package com.hacktheborder.controller;
 
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+
 import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
 import com.hacktheborder.ApplicationManager.AnimationManager;
+import com.hacktheborder.ApplicationManager.GameControllerManager;
 import com.hacktheborder.ApplicationManager.QuestionManager;
-import com.hacktheborder.model.Question;
-import com.hacktheborder.utilities.AnimationEffects;
-
-import javafx.application.Platform;
-import javafx.concurrent.Worker;
+import com.hacktheborder.ApplicationManager.TeamManager;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -22,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
-import javafx.scene.web.WebEngine;
 
 
 @SuppressWarnings("exports")
@@ -109,7 +106,7 @@ public class MultipleChoiceController {
 
 
     public void nextSection() {
-        ApplicationManager.displayDebuggingPanel();
+        GameControllerManager.displayDebuggingPanel();
     }
 
 
@@ -124,11 +121,12 @@ public class MultipleChoiceController {
         
         if (!selectedButton.getText().equals(QuestionManager.getCurrentQuestionAnswer())) {
             AnimationManager.animateWrongAnswerChoice(selectedButton);
+            QuestionManager.updateMultipleChoiceWrongAttempts();
             shuffleMultipleChoiceButtons();
             
 
         } else {
-            ApplicationManager.updateTeamScore();
+            TeamManager.updateTeamScore();
             AnimationManager.animateCorrectAnswerChoice(selectedButton);
             buttonVBoxContainer.getChildren().remove(submitButton);
             buttonVBoxContainer.getChildren().add(nextSectionButton);
@@ -137,14 +135,6 @@ public class MultipleChoiceController {
         multipleChoiceSelection.selectToggle(null);
         
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -177,11 +167,6 @@ public class MultipleChoiceController {
         // Add the submit button back at the same position
         buttonVBoxContainer.getChildren().add(submitIndex, submitButton);
     }
-
-
-
-
-
 }
 
 

@@ -107,6 +107,11 @@ public class GameController {
     }
 
 
+    public void setTextToDebug( ) {
+        questionTextField.setText("Fix the code so it produces the following output.");
+    }
+
+
 
 
 

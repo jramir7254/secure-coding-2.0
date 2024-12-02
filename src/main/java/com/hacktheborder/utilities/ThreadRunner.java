@@ -15,7 +15,7 @@ public class ThreadRunner extends Thread {
     public ThreadRunner(String file) {
         try {
 
-            compileJavaCode(file);
+            //compileJavaCode(file);
 
             runProcessBuilder = new ProcessBuilder("java", "-cp", file, "Main.java");
             runProcessBuilder.redirectErrorStream(true);
@@ -43,9 +43,9 @@ public class ThreadRunner extends Thread {
 
             Process compileProcess = compileProcessBuilder.start();
 
-            if(compileProcess.waitFor(2, java.util.concurrent.TimeUnit.SECONDS)) {
+            if(compileProcess.waitFor(3, java.util.concurrent.TimeUnit.SECONDS)) {
                 compileProcess.destroy();
-                System.out.println("Process took too long and was terminated.\n");
+                System.out.println("Compile process took too long and was terminated.\n");
             }
         } catch (Exception e) {
             System.err.println("Exception message from CompileJavaCode(String javaFile) @ThreadRunner: " + e.getMessage());
@@ -63,7 +63,7 @@ public class ThreadRunner extends Thread {
    
             if (!runProcess.waitFor(2, java.util.concurrent.TimeUnit.SECONDS)) {
                 runProcess.destroy();
-                System.err.println("Process took too long and was terminated.\n");
+                System.err.println("Run process took too long and was terminated.\n");
             } 
             
             BufferedReader runProccessBufferedReader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
@@ -82,21 +82,3 @@ public class ThreadRunner extends Thread {
         } 
     }
 }
-
-// finally {
-//     // Ensure the process is terminated and resources are freed
-//     if (runProcess != null && runProcess.isAlive()) {
-//         runProcess.destroy();
-//     }
-
-//     // Close any lingering streams to prevent resource leaks
-//     try {
-        
-//         process.getInputStream().close();
-//         process.getErrorStream().close();
-//         process.getOutputStream().close();
-//     } catch (IOException e) {
-//         System.err.println("Failed to close streams: " + e.getMessage());
-//     }
-
-// }

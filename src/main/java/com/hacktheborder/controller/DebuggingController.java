@@ -3,7 +3,10 @@ package com.hacktheborder.controller;
 import com.hacktheborder.utilities.AnimationEffects;
 import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
+import com.hacktheborder.ApplicationManager.AnimationManager;
+import com.hacktheborder.ApplicationManager.GameControllerManager;
 import com.hacktheborder.ApplicationManager.QuestionManager;
+import com.hacktheborder.ApplicationManager.TeamManager;
 import com.hacktheborder.model.Question;
 import com.hacktheborder.utilities.FileManager;
 import com.hacktheborder.utilities.ThreadRunner;
@@ -14,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 
 @SuppressWarnings("exports")
@@ -72,14 +77,24 @@ public class DebuggingController {
     }
 
 
+    public void setTextToDebug(String expectedOutput) {
+        System.out.println(expectedOutput);
+        String s = "Expected Output: \n" + expectedOutput;
+
+        consoleOutputTextArea.setPromptText(s);
+    }
+
 
 
     public void nextQuestion() {
+        TeamManager.addQuestionData();
         runButton.setStyle("");
         consoleOutputTextArea.setText(null);
         nextQuestionButton.setVisible(false);
+        runButton.setDisable(false);
+        resetButton.setDisable(false);
         ApplicationManager.setupNextQuestion();
-        ApplicationManager.start();
+       
     }
 
 
@@ -88,7 +103,8 @@ public class DebuggingController {
 
 
     public void reset() {
-        ApplicationManager.resetCodeArea();
+        consoleOutputTextArea.setText(null);
+        GameControllerManager.resetCodeArea();
     }
 
 
@@ -104,7 +120,7 @@ public class DebuggingController {
 
     public void writeAndRun() {
         try {
-            String javaCodeToWrite = ApplicationManager.getCodeMirrorText();
+            String javaCodeToWrite = GameControllerManager.getCodeMirrorText();
             FileManager writer = new FileManager();
             writer.writeToFile(javaCodeToWrite);
             ThreadRunner runner = new ThreadRunner(writer.getFile());
@@ -119,12 +135,17 @@ public class DebuggingController {
 
 
             if(validateOutput()) {
-                ApplicationManager.updateTeamScore();
+                AnimationManager.animateCorrectAnswerChoice(runButton);
+                QuestionManager.updateDebuggingAttempts(javaCodeToWrite, true);
+                TeamManager.updateTeamScore();
                 nextQuestionButton.setVisible(true);
-                AnimationEffects.playShakeEffect(runButton, "#24e327", true, false);
+                runButton.setDisable(true);
+                resetButton.setDisable(true);
+                
             } else {
+                QuestionManager.updateDebuggingAttempts(javaCodeToWrite, false);
                 AnimationEffects.wrongAnswerPenalty();
-                AnimationEffects.playShakeEffect(runButton, "#e3210b", false, true);
+                AnimationManager.animateWrongAnswerChoice(runButton);
             }
 
 

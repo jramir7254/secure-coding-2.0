@@ -1,7 +1,7 @@
 package com.hacktheborder.utilities;
 
 
-import com.hacktheborder.ApplicationManager;
+
 import com.hacktheborder.Main;
 import com.hacktheborder.ApplicationManager.TeamManager;
 
@@ -11,58 +11,106 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 public class AnimationEffects {
-    public static int score;
-    public static int questionTimeInSeconds;
-    public static int totalTimeInSeconds;
+    private static int score;
+    private static int questionTimeInSeconds;
+    private static int totalTimeInSeconds;
+
     public static Label scoreLabel = Main.gameController.questionScoreLabel;
     public static Label questionTimeLabel = Main.mainController.questionTimeLabel;
     public static Label totalTimeLabel = Main.mainController.totalTimeLabel;
     public static Label currentScore = Main.mainController.currentScoreLabel;
-    public static Timeline questionScore;
-    public static Timeline questionTimeTimeline;
-    public static Timeline totalTimeTimeline;
+
+    private static Timeline questionScore;
+    private static Timeline questionTimeTimeline;
+    private static Timeline totalTimeTimeline;
 
 
-    public static void updateTeamScore() {
-        String newText = String.format("Current Score: %d +(%d)", TeamManager.getCurrentTeam().getCurrentGameScore(), score + 1);
+    public static void animateUpdatedTeamScore(int newScore) {
+        String newText = String.format("Current Score: %d +(%d)", newScore, score + 1);
         currentScore.setText(newText);
         playShakeEffect(currentScore, "#24e327", true, true);
 
     }
 
 
-    public static void animateScoreTimer() {
-      
+    public static int getCurrentQuestionScore() {
+        return score;
+    }
+
+
+    public static void initialize() {
         score = 100;
+        questionTimeInSeconds = 0;
+        totalTimeInSeconds = 0;
 
 
         questionScore = new Timeline(
             new KeyFrame(Duration.seconds(1), event -> {
-                scoreLabel.setText("Question Score: " + score);
-                score--;
-
+                scoreLabel.setText("Question Score: " + ( score-- ));
             })
         );
+        questionScore.setCycleCount(Timeline.INDEFINITE); 
 
-        questionScore.setCycleCount(Timeline.INDEFINITE); // Run indefinitely until stopped
-        questionScore.play(); 
-      
+
+        questionTimeTimeline = new Timeline(
+            new KeyFrame(Duration.seconds(1), event -> {
+                questionTimeLabel.setText("Question Time: " + formatTime( questionTimeInSeconds++ ));
+            })
+        );
+        questionTimeTimeline.setCycleCount(Timeline.INDEFINITE); 
+
+
+        totalTimeTimeline = new Timeline(
+            new KeyFrame(Duration.seconds(1), event -> {
+                totalTimeLabel.setText("Total Time: " + formatTime( totalTimeInSeconds++ ));
+            })
+        );
+        totalTimeTimeline.setCycleCount(Timeline.INDEFINITE); 
     }
+
+
+    public static void startAllTimelines() {
+        questionTimeTimeline.play();
+        questionScore.play();
+        totalTimeTimeline.play();
+    }
+
+
+
+    public static void stopAllTimelines() {
+        questionTimeTimeline.stop();
+        questionScore.stop();
+        totalTimeTimeline.stop();
+    }
+
+    public static void stopAndResetQuestionAndScoreTimelines() {
+        questionTimeTimeline.stop();
+        questionScore.stop();
+        score = 100;
+        questionTimeInSeconds = 0; 
+    }
+
 
 
     public static void stopQuestionScoreTimeline() {
         questionScore.stop();
     }
 
+
     public static void startQuestionScoreTimeline() {
+        currentScore.setText("Current Score: " + TeamManager.getCurrentTeam().getCurrentGameScore());
+        scoreLabel.setText("Question Score: 100");
+        questionScore.jumpTo(Duration.seconds(1));
         questionScore.play();
     }
+
 
     public static void resetQuestionScoreTimeline() {
         score = 100;
@@ -72,60 +120,21 @@ public class AnimationEffects {
 
 
 
-    public static void animateQuestionTime() {
-      
-        questionTimeInSeconds = 0;
-
-
-        questionTimeTimeline = new Timeline(
-            new KeyFrame(Duration.seconds(1), event -> {
-                questionTimeLabel.setText("Question Time: " + formatTime(questionTimeInSeconds));
-                questionTimeInSeconds++;
-
-            })
-        );
-
-        questionTimeTimeline.setCycleCount(Timeline.INDEFINITE); // Run indefinitely until stopped
-        questionTimeTimeline.play(); 
-      
-    }
 
     public static void stopQuestionTimer() {
         questionTimeTimeline.stop();
     }
 
     public static void startQuestionTimer() {
+        questionTimeLabel.setText("Question Time: 00:00");
+        questionTimeTimeline.jumpTo(Duration.seconds(1));
         questionTimeTimeline.play();
     }
-
 
     public static void resetQuestionTimer() {
         questionTimeInSeconds = 0; 
     }
 
-
-
-
-
-
-
-    public static void animateTotalTime() {
-      
-        totalTimeInSeconds = 0;
-
-
-        totalTimeTimeline = new Timeline(
-            new KeyFrame(Duration.seconds(1), event -> {
-                totalTimeLabel.setText("Total Time: " + formatTime(totalTimeInSeconds));
-                totalTimeInSeconds++;
-
-            })
-        );
-
-        totalTimeTimeline.setCycleCount(Timeline.INDEFINITE); // Run indefinitely until stopped
-        totalTimeTimeline.play(); 
-      
-    }
 
 
     private static String formatTime(int seconds) {
@@ -135,10 +144,7 @@ public class AnimationEffects {
     }
 
 
-
-
     public static void wrongAnswerPenalty() {
-        //playShakeEffect(scoreLabel, "#e3210b", false, true);
         score -= 10;
         scoreLabel.setText("Question Score: " + score + " (-10)");
         playShakeEffect(scoreLabel, "#e3210b", false, true);
@@ -148,7 +154,7 @@ public class AnimationEffects {
 
 
     public static void playShakeEffect(Node node, String color, boolean correct, boolean reset) {
-        if (node instanceof ToggleButton) {
+        if (node instanceof ToggleButton || node instanceof Button) {
             ((Region) node).setStyle("-fx-background-color: " + color + ";");
         }
 
@@ -162,7 +168,7 @@ public class AnimationEffects {
 
         // Shake effect (left-right movement)
         TranslateTransition shake = new TranslateTransition(Duration.millis(50), node);
-        if(!correct) {
+        if (!correct) {
             shake.setByX(10); // Move 10px to the right
             shake.setCycleCount(6); // Repeat 6 times
             shake.setAutoReverse(true); // Move back and forth
@@ -173,7 +179,7 @@ public class AnimationEffects {
         scaleDown.setToX(1.0); // Return to normal width
         scaleDown.setToY(1.0); // Return to normal height
 
-        if(reset) {
+        if (reset) {
             scaleDown.setOnFinished(e -> node.setStyle(""));
         }
 
