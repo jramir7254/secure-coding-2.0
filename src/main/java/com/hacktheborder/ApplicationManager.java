@@ -45,9 +45,39 @@ public class ApplicationManager {
     private static       Team                       currentTeam;
 
 
+
+    public static void onMainMenuSubmitButtonPressed() {
+        MainControllerManager.displayGamePanel();
+    }
+
+
+    public static void initialize() {
+        
+        currentQuestion = QUESTION_HOLDER.getNextQuestion();
+        AnimationEffects.initialize();
+    }
+
+
+
+
+
+
     public static class QuestionManager {
         public static Question getCurrentQuestion() {
             return currentQuestion;
+        }
+
+        public static void getNextQuestion() {
+            if(!QUESTION_HOLDER.isEmpty()) {
+                AnimationManager.restartQuestionAndScoreTimelines();
+                currentQuestion = QUESTION_HOLDER.getNextQuestion();
+                GameControllerManager.displayMultipleChoicePanel();
+
+                
+            } else {
+                MAIN_CONTROLLER.addCenter(END_GAME_PANEL);
+                AnimationManager.stopAllTimelines();
+            }
         }
 
         public static String getCurrentQuestionAnswer() {
@@ -150,11 +180,16 @@ public class ApplicationManager {
 
         public static void displayDebuggingPanel() {
             displayEditableHTMLFile();
-            int index = GAME_CONTROLLER.centerVBox.getChildren().indexOf(MULTIPLE_CHOICE_CONTROLLER.buttonVBoxContainer);
-            GAME_CONTROLLER.centerVBox.getChildren().set(index, DEBUGGING_PANEL);
+            GAME_CONTROLLER.displayDebuggingPanel(MULIPLE_CHOICE_PANEL, DEBUGGING_PANEL);
             GAME_CONTROLLER.setTextToDebug();
             DEBUGGING_CONTROLLER.setTextToDebug(currentQuestion.getExpectedOutput());
             AnimationManager.restartQuestionAndScoreTimelines();
+        }
+
+        public static void displayMultipleChoicePanel() {
+            displayReadOnlyHTMLFile();
+            GAME_CONTROLLER.displayMultipleChoice(DEBUGGING_PANEL, MULIPLE_CHOICE_PANEL);
+            MULTIPLE_CHOICE_CONTROLLER.resetButtons();
         }
 
         public static void resetCodeArea() {
@@ -164,53 +199,21 @@ public class ApplicationManager {
 
 
 
+    public static class MainControllerManager {
 
-
-    public static void onMainMenuSubmitButtonPressed() {
-        MAIN_CONTROLLER.addCenter(GAME_PANEL);
-        GameControllerManager.displayReadOnlyHTMLFile();
-        AnimationEffects.startAllTimelines();
-        TeamManager.setupCurrentTeam(MAIN_MENU_CONTROLLER.getTeamNameTextFieldText());
-    }
-
-
-    public static void initialize() {
-        
-        currentQuestion = QUESTION_HOLDER.getNextQuestion();
-        AnimationEffects.initialize();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-    public static void setupNextQuestion() {
-        if(!QUESTION_HOLDER.isEmpty()) {
-            AnimationManager.restartQuestionAndScoreTimelines();
-            currentQuestion = QUESTION_HOLDER.getNextQuestion();
-            GAME_CONTROLLER.displayMultipleChoice();
-            MULTIPLE_CHOICE_CONTROLLER.resetButtons();
+        public static void displayGamePanel() {
+            MAIN_CONTROLLER.addCenter(GAME_PANEL);
+            TeamManager.setupCurrentTeam(MAIN_MENU_CONTROLLER.getTeamNameTextFieldText());
             GameControllerManager.displayReadOnlyHTMLFile();
-        } else {
+            AnimationEffects.startAllTimelines();
+        }
+
+        public static void endGamePanel() {
             MAIN_CONTROLLER.addCenter(END_GAME_PANEL);
             AnimationManager.stopAllTimelines();
         }
+
     }
-
-
-
 
 }
  

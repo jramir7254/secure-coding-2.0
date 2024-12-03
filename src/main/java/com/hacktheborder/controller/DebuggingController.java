@@ -78,10 +78,7 @@ public class DebuggingController {
 
 
     public void setTextToDebug(String expectedOutput) {
-        System.out.println(expectedOutput);
-        String s = "Expected Output: \n" + expectedOutput;
-
-        consoleOutputTextArea.setPromptText(s);
+        consoleOutputTextArea.setPromptText("Expected Output: \n" + expectedOutput);
     }
 
 
@@ -93,7 +90,7 @@ public class DebuggingController {
         nextQuestionButton.setVisible(false);
         runButton.setDisable(false);
         resetButton.setDisable(false);
-        ApplicationManager.setupNextQuestion();
+        QuestionManager.getNextQuestion();
        
     }
 
@@ -123,6 +120,7 @@ public class DebuggingController {
             String javaCodeToWrite = GameControllerManager.getCodeMirrorText();
             FileManager writer = new FileManager();
             writer.writeToFile(javaCodeToWrite);
+
             ThreadRunner runner = new ThreadRunner(writer.getFile());
 
             runner.start();
@@ -144,18 +142,11 @@ public class DebuggingController {
                 
             } else {
                 QuestionManager.updateDebuggingAttempts(javaCodeToWrite, false);
-                AnimationEffects.wrongAnswerPenalty();
                 AnimationManager.animateWrongAnswerChoice(runButton);
             }
 
-
-            if (!runner.isAlive()) {
-                System.out.println("ThreadRunner has terminated successfully.\n");
-            } else {
-                System.err.println("ThreadRunner is still alive.\n");
-            }
         } catch (Exception e) {
-
+            System.err.println("Exception message from writeAndRun() @DebuggingController: " + e.getMessage());
         }
 
     }

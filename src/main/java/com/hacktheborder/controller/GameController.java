@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -87,11 +88,17 @@ public class GameController {
     }
 
 
+    public void displayDebuggingPanel(Node removed, Node add) {
+        int index = centerVBox.getChildren().indexOf(removed);
+        centerVBox.getChildren().set(index, add);
+    }
 
 
-    public void displayMultipleChoice() {
-        centerVBox.getChildren().remove(Main.debugging);
-        centerVBox.getChildren().add(Main.multipleChoice);
+
+
+    public void displayMultipleChoice(Node removed, Node add) {
+        int index = centerVBox.getChildren().indexOf(removed);
+        centerVBox.getChildren().set(index, add);
     }
 
 
@@ -109,6 +116,10 @@ public class GameController {
 
     public void setTextToDebug( ) {
         questionTextField.setText("Fix the code so it produces the following output.");
+    }
+
+    public void setTextToMultipleChoice( ) {
+        questionTextField.setText("What type of error is this?");
     }
 
 
@@ -136,7 +147,7 @@ public class GameController {
             });
             
         } catch (Exception e) {
-            System.err.println("Exception message from loadWebViewContent(): " + e.getMessage());
+            System.err.println("Exception message from loadWebViewContent(): @GameController" + e.getMessage());
         }
     }
 }

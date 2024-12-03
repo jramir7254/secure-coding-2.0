@@ -69,6 +69,7 @@ public class Main extends Application {
                 FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("fxml/Main.fxml"));
                 main = mainLoader.load();
                 mainController = mainLoader.getController();
+                
 
                 FXMLLoader menuLoader = new FXMLLoader(Main.class.getResource("fxml/MainMenu.fxml"));
                 mainMenu = menuLoader.load();

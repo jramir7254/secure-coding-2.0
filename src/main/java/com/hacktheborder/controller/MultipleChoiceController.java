@@ -168,22 +168,3 @@ public class MultipleChoiceController {
         buttonVBoxContainer.getChildren().add(submitIndex, submitButton);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -105,7 +105,7 @@ public class MainController {
             webEngine.load(htmlFile.toExternalForm());
                 
         } catch (Exception e) {
-            System.err.println("Exception message from loadWebViewContent: " + e.getMessage());
+            System.err.println("Exception message from loadInformationWebViewContent: @MainController" + e.getMessage());
         }
     }
 
@@ -113,10 +113,6 @@ public class MainController {
 
 
     public void displayInfo() {
-        if (informationWebView.isVisible()) {
-            informationWebView.setVisible(false); 
-        } else {
-            informationWebView.setVisible(true);  
-        }
+        informationWebView.setVisible(!informationWebView.isVisible());
     }
 }

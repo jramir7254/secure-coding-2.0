@@ -14,7 +14,7 @@
          </children>
       </HBox>
       <TextField id="q-field" fx:id="questionTextField" alignment="CENTER" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="What Type of Error is This?" VBox.vgrow="NEVER" />
-      <HBox fx:id="webViewVBoxContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
+      <HBox id="web-cont" fx:id="webViewVBoxContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
          <children>
             <WebView id="web-view" fx:id="codeMirrorWebView" />
          </children>

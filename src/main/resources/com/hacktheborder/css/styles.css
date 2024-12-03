@@ -22,6 +22,7 @@
 
 
 #web-cont {
+    -fx-background-color: #282c34;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
