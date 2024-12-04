@@ -120,16 +120,18 @@ public class MultipleChoiceController {
         ToggleButton selectedButton = (ToggleButton) multipleChoiceSelection.getSelectedToggle();
         
         if (!selectedButton.getText().equals(QuestionManager.getCurrentQuestionAnswer())) {
+
             AnimationManager.animateWrongAnswerChoice(selectedButton);
             QuestionManager.updateMultipleChoiceWrongAttempts();
             shuffleMultipleChoiceButtons();
             
-
         } else {
+
             TeamManager.updateTeamScore();
             AnimationManager.animateCorrectAnswerChoice(selectedButton);
             buttonVBoxContainer.getChildren().remove(submitButton);
             buttonVBoxContainer.getChildren().add(nextSectionButton);
+            
         }
 
         multipleChoiceSelection.selectToggle(null);

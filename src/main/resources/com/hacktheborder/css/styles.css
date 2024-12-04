@@ -20,6 +20,7 @@
 }
 
 
+
 #web-cont {
     -fx-background-color: rgb(33,33,33);
     -fx-background-radius: 10;
@@ -31,11 +32,12 @@
 }
 
 #footer {
-    -fx-background-color: rgb(69, 46, 85);
+    -fx-background-color: rgb(0, 0, 0, 0);
 }
 
 #main-pane {
-    -fx-background-color: rgb(69, 46, 85);
+    /* -fx-background-color: rgb(69, 46, 85); */
+    -fx-background-color: linear-gradient(to right, #864899, #432557);
 }
 
 #center {
@@ -55,7 +57,7 @@
 }
 
 #info-grid {
-
+    -fx-background-color: rgb(0, 0, 0, 0);
 }
 
 #console {
@@ -82,12 +84,15 @@
 .text-area {
     -fx-prompt-text-fill: rgb(136, 133, 133);
     -fx-prompt-text-size: 12px;
-    -fx-control-inner-background: #2E2E2E; /* Dark gray background */
+    -fx-control-inner-background: #292828; /* Dark gray background */
     -fx-text-fill: #FFFFFF;               /* White text color */
                  /* Optional: Adjust font size */
 }
 
 .buttons {
+    
+
+
     -fx-background-color: rgb(174, 68, 90);
     -fx-background-radius: 5px;
     -fx-text-fill: white;
@@ -102,7 +107,7 @@
 }
 
 .side-panel {
-    -fx-background-color: rgb(69, 46, 85);
+    -fx-background-color: rgb(0, 0, 0, 0);
 }
 
 

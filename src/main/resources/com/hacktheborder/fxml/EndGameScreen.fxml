@@ -6,7 +6,7 @@
 
 <VBox id="center" fx:id="centerVBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controller.EndGameScreenController">
    <children>
-      <Label text="Label" />
+      <Label text="Team:" />
       <Label text="Label" />
       <Button fx:id="printTeamDataButton" mnemonicParsing="false" styleClass="buttons" text="Button" />
    </children>

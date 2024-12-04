@@ -51,6 +51,9 @@ public class DebuggingController {
         consoleOutputTextArea.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.95));
         consoleOutputTextArea.prefHeightProperty().bind(centerVBox.heightProperty().multiply(0.7));
 
+        buttonHBoxContainer.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.95));
+        buttonHBoxContainer.prefHeightProperty().bind(centerVBox.heightProperty().multiply(0.15));
+
 
         HBox.setMargin(runButton, new Insets(5, 20, 5, 20));
         runButton.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.35));    
@@ -118,10 +121,9 @@ public class DebuggingController {
                 QuestionManager.updateDebuggingAttempts(javaCodeToWrite, true);
                 TeamManager.updateTeamScore();
                 nextQuestionButton.setVisible(true);
-                centerVBox.getChildren().remove(runButton);
-                centerVBox.getChildren().remove(resetButton);
-                //runButton.setDisable(true);
-                //resetButton.setDisable(true);
+              
+                runButton.setDisable(true);
+                resetButton.setDisable(true);
                 
             } else {
                 QuestionManager.updateDebuggingAttempts(javaCodeToWrite, false);

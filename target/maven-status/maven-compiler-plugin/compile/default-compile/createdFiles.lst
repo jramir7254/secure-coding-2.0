@@ -1,4 +1,5 @@
 com\hacktheborder\Main.class
+com\hacktheborder\ApplicationManager$MainControllerManager.class
 com\hacktheborder\utilities\AnimationEffects.class
 com\hacktheborder\utilities\ThreadRunner.class
 com\hacktheborder\utilities\SQLConnector.class

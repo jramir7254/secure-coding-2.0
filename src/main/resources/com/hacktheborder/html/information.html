@@ -11,7 +11,9 @@
     <style>
 
         body {
-            background-color: rgb(69, 46, 85);
+            margin: 0;
+            overflow: hidden;
+            background-image: linear-gradient(to right, #572f6a , #432557);
         }
 
         .language-java {
@@ -25,12 +27,13 @@
         }
 
         #c {
-            margin: 5px;
+            /* margin: 5px; */
+            
             padding: 5px;
             background-color: rgb(75, 67, 118);
-            font-size: 4vw;
+            font-size: 1rem;
             color: azure;
-            border-radius: 5px;
+            border-radius: 10px;
         }
         
 
@@ -40,6 +43,29 @@
 
 <body>
     <div id="c">
+    <h3>How to Play</h3>
+        <p>
+            You will first see some java code and will have to
+            determine what type of error it is. Then in the next
+            section, you will have to fix the code so that it compiles
+            and runs to produce the desired output.
+        </p>
+
+    <br>
+    <h3>Scoring</h3>
+        <p>
+            The max score you can get for a question is 100 and but like
+            it starts going down. If you make multiple wrong attemtps 
+            it will make the score go down and stuff.
+        </p>
+    <br>
+    <pre id="container"><code class="language-java">
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+    </code></pre>
     <h3>How to Play</h3>
         <p>
             You will first see some java code and will have to
