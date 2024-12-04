@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<VBox id="center" fx:id="centerVBox" alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controller.GameController">
+<VBox id="center" fx:id="centerVBox" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controller.GameController">
    <children>
       <HBox fx:id="scoreHBoxContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
          <children>
@@ -14,7 +14,7 @@
          </children>
       </HBox>
       <TextField id="q-field" fx:id="questionTextField" alignment="CENTER" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="What Type of Error is This?" VBox.vgrow="NEVER" />
-      <HBox id="web-cont" fx:id="webViewVBoxContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
+      <HBox id="web-cont" fx:id="webViewVBoxContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
          <children>
             <WebView id="web-view" fx:id="codeMirrorWebView" />
          </children>

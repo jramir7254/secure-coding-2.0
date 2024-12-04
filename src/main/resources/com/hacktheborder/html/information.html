@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.css">
 
     <style>
 
         body {
-            background-color: rgb(75, 67, 118);
-            font-size: 3vw;
-            color: azure;
-            border-radius: 50px;
-            
+            background-color: rgb(69, 46, 85);
         }
 
         .language-java {
             tab-size: 1;
+            padding: 0;
+            border-radius: 5px;
         }
+
+        #container {
+            font-size: 3vw;
+        }
+
+        #c {
+            margin: 5px;
+            padding: 5px;
+            background-color: rgb(75, 67, 118);
+            font-size: 4vw;
+            color: azure;
+            border-radius: 5px;
+        }
+        
 
     </style>
 
 </head>
+
 <body>
+    <div id="c">
     <h3>How to Play</h3>
         <p>
             You will first see some java code and will have to
@@ -32,6 +47,7 @@
             section, you will have to fix the code so that it compiles
             and runs to produce the desired output.
         </p>
+
     <br>
     <h3>Scoring</h3>
         <p>
@@ -40,13 +56,14 @@
             it will make the score go down and stuff.
         </p>
     <br>
-    <pre><code class="language-java">
-        public class HelloWorld {
-            public static void main(String[] args) {
-                System.out.println("Hello, World!");
-            }
-        }
+    <pre id="container"><code class="language-java">
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
     </code></pre>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
 </body>

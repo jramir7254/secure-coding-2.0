@@ -43,8 +43,8 @@ public class MultipleChoiceController {
 
 
     public void initialize() {
-        buttonVBoxContainer.prefWidthProperty().bind(Main.gameController.centerVBox.widthProperty().multiply(0.7));
-        buttonVBoxContainer.prefHeightProperty().bind(Main.gameController.centerVBox.heightProperty().multiply(0.35));
+        buttonVBoxContainer.prefWidthProperty().bind(Main.gameController.centerVBox.widthProperty().multiply(0.8));
+        buttonVBoxContainer.prefHeightProperty().bind(Main.gameController.centerVBox.heightProperty().multiply(0.4));
         setButtonLayout();
     }
 
@@ -64,8 +64,8 @@ public class MultipleChoiceController {
         for (Node node : buttonVBoxContainer.getChildren()) {
             if (node instanceof ToggleButton) {
                 ToggleButton button = (ToggleButton) node; 
-                button.prefWidthProperty().bind(Main.gameController.centerVBox.widthProperty().multiply(0.5));      
-                button.prefHeightProperty().bind(Main.gameController.centerVBox.heightProperty().multiply(0.015));   
+                button.prefWidthProperty().bind(buttonVBoxContainer.widthProperty().multiply(0.5));      
+                button.prefHeightProperty().bind(buttonVBoxContainer.heightProperty().multiply(0.01));   
                 VBox.setMargin(button, new Insets(10, 0, 10, 0));
             }
         }
@@ -73,13 +73,13 @@ public class MultipleChoiceController {
         nextSectionButton = new Button("Next Section");
         nextSectionButton.getStyleClass().add("buttons");
         VBox.setMargin(nextSectionButton, new Insets(20, 0, 5, 0));
-        nextSectionButton.prefWidthProperty().bind(Main.gameController.centerVBox.widthProperty().multiply(0.5));    
-        nextSectionButton.prefHeightProperty().bind(Main.gameController.centerVBox.heightProperty().multiply(0.015)); 
+        nextSectionButton.prefWidthProperty().bind(buttonVBoxContainer.widthProperty().multiply(0.5));    
+        nextSectionButton.prefHeightProperty().bind(buttonVBoxContainer.heightProperty().multiply(0.01)); 
 
         nextSectionButton.setOnAction(e -> nextSection());
 
-        submitButton.prefWidthProperty().bind(Main.gameController.centerVBox.widthProperty().multiply(0.5));    
-        submitButton.prefHeightProperty().bind(Main.gameController.centerVBox.heightProperty().multiply(0.015));   
+        submitButton.prefWidthProperty().bind(buttonVBoxContainer.widthProperty().multiply(0.5));    
+        submitButton.prefHeightProperty().bind(buttonVBoxContainer.heightProperty().multiply(0.010));   
         submitButton.setOnAction(e -> validateAnswer());
         VBox.setMargin(submitButton, new Insets(20, 0, 5, 0));
 

@@ -15,14 +15,13 @@
 }
 
 #web-view {
-    -fx-page-fill: #282c34;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
+    
+
 }
 
 
 #web-cont {
-    -fx-background-color: #282c34;
+    -fx-background-color: rgb(33,33,33);
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
@@ -56,13 +55,17 @@
 }
 
 #info-grid {
-    border-radius: 10px;
+
 }
 
 #console {
     -fx-font-weight: none;
 
     -fx-font-size: 12px; 
+}
+
+#info-web {
+    
 }
 
 .side-labels {

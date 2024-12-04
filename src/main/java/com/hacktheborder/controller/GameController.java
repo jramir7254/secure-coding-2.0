@@ -40,7 +40,7 @@ public class GameController {
     public WebView codeMirrorWebView;
 
 
-    public WebEngine webEngine;
+   
 
     
 
@@ -62,24 +62,22 @@ public class GameController {
 
     public void bindComponentsToMainPane(BorderPane mainPane) {
 
-        webEngine = codeMirrorWebView.getEngine();
-
         centerVBox.prefWidthProperty().bind(mainPane.widthProperty().multiply(0.3));
         centerVBox.prefHeightProperty().bind(mainPane.heightProperty().multiply(0.7));
 
-        scoreHBoxContainer.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.7));
+        scoreHBoxContainer.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.8));
         scoreHBoxContainer.prefHeightProperty().bind(centerVBox.heightProperty().multiply(0.025));
 
         VBox.setMargin(questionTextField, new Insets(20));
-        questionTextField.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.7));
+        questionTextField.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.8));
         questionTextField.prefHeightProperty().bind(centerVBox.heightProperty().multiply(0.05));
 
 
         VBox.setMargin(webViewVBoxContainer, new Insets(20));
-        webViewVBoxContainer.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.7));
+        webViewVBoxContainer.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.8));
         webViewVBoxContainer.prefHeightProperty().bind(centerVBox.heightProperty().multiply(0.35));
 
-        codeMirrorWebView.prefWidthProperty().bind(webViewVBoxContainer.widthProperty());
+        codeMirrorWebView.prefWidthProperty().bind(webViewVBoxContainer.widthProperty().multiply(0.95));
         codeMirrorWebView.prefHeightProperty().bind(webViewVBoxContainer.heightProperty());
                
         Platform.runLater(() -> centerVBox.getChildren().add(Main.multipleChoice));
@@ -110,7 +108,7 @@ public class GameController {
 
 
     public String getEditorContent() {
-        return (String) webEngine.executeScript("getEditorContent()");            
+        return (String) codeMirrorWebView.getEngine().executeScript("getEditorContent()");            
     }
 
 
@@ -134,6 +132,8 @@ public class GameController {
 
     public void loadWebViewContent(String htmlURLFile, String javaScriptCommand) {
         try {
+
+            WebEngine webEngine = codeMirrorWebView.getEngine();
        
             URL htmlFile = getClass().getResource(htmlURLFile);
 
@@ -141,7 +141,6 @@ public class GameController {
 
             webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
                 if (newState == Worker.State.SUCCEEDED) {
-                    System.out.println("WebView content loaded successfully.");
                     webEngine.executeScript(javaScriptCommand);
                 }
             });

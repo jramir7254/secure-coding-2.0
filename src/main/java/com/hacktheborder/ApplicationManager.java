@@ -63,12 +63,13 @@ public class ApplicationManager {
 
 
     public static class QuestionManager {
+
         public static Question getCurrentQuestion() {
             return currentQuestion;
         }
 
         public static void getNextQuestion() {
-            if(!QUESTION_HOLDER.isEmpty()) {
+            if (!QUESTION_HOLDER.isEmpty()) {
                 AnimationManager.restartQuestionAndScoreTimelines();
                 currentQuestion = QUESTION_HOLDER.getNextQuestion();
                 GameControllerManager.displayMultipleChoicePanel();
@@ -89,7 +90,7 @@ public class ApplicationManager {
         }
 
         public static void updateDebuggingAttempts(String debuggingAttempt, boolean correct) {
-            if(!correct)
+            if (!correct)
                 currentQuestion.updateDebuggingWrongAttempts();
             currentQuestion.addDebugingAttempt(debuggingAttempt);
         }
@@ -101,6 +102,7 @@ public class ApplicationManager {
             .replace("\n", "\\n")    
             .replace("\r", "");   
         }
+
     }
 
 
@@ -133,6 +135,7 @@ public class ApplicationManager {
 
 
     public static class AnimationManager {
+
         public static void animateWrongAnswerChoice(Node node) {
             AnimationEffects.playShakeEffect(node, "#e3210b", false, true);
             AnimationEffects.wrongAnswerPenalty();
@@ -155,11 +158,13 @@ public class ApplicationManager {
         public static void stopAllTimelines() {
             AnimationEffects.stopAllTimelines();
         }
+
     }
 
 
 
     public static class GameControllerManager {
+
         public static String getReadOnlyHTMLFile() {
             return READ_ONLY_HTML_FILE;
         }
@@ -179,6 +184,7 @@ public class ApplicationManager {
         }
 
         public static void displayDebuggingPanel() {
+            System.out.println("Editable WebView content loaded successfully.");
             displayEditableHTMLFile();
             GAME_CONTROLLER.displayDebuggingPanel(MULIPLE_CHOICE_PANEL, DEBUGGING_PANEL);
             GAME_CONTROLLER.setTextToDebug();
@@ -187,6 +193,7 @@ public class ApplicationManager {
         }
 
         public static void displayMultipleChoicePanel() {
+            System.out.println("Non-Editable WebView content loaded successfully.");
             displayReadOnlyHTMLFile();
             GAME_CONTROLLER.displayMultipleChoice(DEBUGGING_PANEL, MULIPLE_CHOICE_PANEL);
             MULTIPLE_CHOICE_CONTROLLER.resetButtons();
@@ -195,6 +202,7 @@ public class ApplicationManager {
         public static void resetCodeArea() {
             displayEditableHTMLFile();
         }
+        
     }
 
 

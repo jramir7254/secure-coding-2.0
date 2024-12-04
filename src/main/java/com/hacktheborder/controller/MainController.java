@@ -22,38 +22,38 @@ public class MainController {
     @FXML 
     public BorderPane rootBorderPane;
 
-    @FXML 
-    public GridPane headerGridPane;
+        @FXML 
+        public GridPane headerGridPane;
 
-    @FXML 
-    public Label teamHighScoreLabel;
+            @FXML 
+            public Label teamHighScoreLabel;
 
-    @FXML 
-    public Label currentScoreLabel;
+            @FXML 
+            public Label currentScoreLabel;
 
-    @FXML 
-    public Label teamLabel;
+            @FXML 
+            public Label teamLabel;
 
-    @FXML 
-    public Label questionTimeLabel;
+            @FXML 
+            public Label questionTimeLabel;
 
-    @FXML 
-    public Label totalTimeLabel;
+            @FXML 
+            public Label totalTimeLabel;
 
-    @FXML
-    public VBox leaderboardVBox;
+        @FXML
+        public VBox leaderboardVBox;
 
-    @FXML
-    public VBox informationVBox;
+        @FXML
+        public VBox informationVBox;
 
-    @FXML 
-    public Label infoLabel;
+            @FXML 
+            public Label infoLabel;
 
-    @FXML 
-    public GridPane informationGridPaneContainer;
+            @FXML 
+            public GridPane informationGridPaneContainer;
 
-    @FXML
-    public WebView informationWebView;
+            @FXML
+            public WebView informationWebView;
 
 
     
@@ -71,9 +71,9 @@ public class MainController {
 
     public void initialize() {
 
-        BorderPane.setMargin(headerGridPane, new Insets(0, 0, 20, 0));
+        BorderPane.setMargin(headerGridPane, new Insets(0, 0, 50, 0));
         headerGridPane.prefWidthProperty().bind(rootBorderPane.widthProperty().multiply(1));
-        headerGridPane.prefHeightProperty().bind(rootBorderPane.heightProperty().multiply(0.05));
+        headerGridPane.prefHeightProperty().bind(rootBorderPane.heightProperty().multiply(0.065));
 
         leaderboardVBox.prefWidthProperty().bind(rootBorderPane.widthProperty().multiply(0.3));
         leaderboardVBox.prefHeightProperty().bind(rootBorderPane.heightProperty().multiply(0.7));
@@ -81,7 +81,7 @@ public class MainController {
         informationVBox.prefWidthProperty().bind(rootBorderPane.widthProperty().multiply(0.3));
         informationVBox.prefHeightProperty().bind(rootBorderPane.heightProperty().multiply(0.7));
 
-        informationGridPaneContainer.prefWidthProperty().bind(informationVBox.widthProperty().multiply(0.75));
+        informationGridPaneContainer.prefWidthProperty().bind(informationVBox.widthProperty().multiply(0.95));
         informationGridPaneContainer.prefHeightProperty().bind(informationVBox.heightProperty().multiply(0.9));
 
         informationWebView.prefWidthProperty().bind(informationGridPaneContainer.widthProperty());
@@ -105,11 +105,9 @@ public class MainController {
             webEngine.load(htmlFile.toExternalForm());
                 
         } catch (Exception e) {
-            System.err.println("Exception message from loadInformationWebViewContent: @MainController" + e.getMessage());
+            System.err.println("Exception message from loadInformationWebViewContent(): @MainController" + e.getMessage());
         }
     }
-
-
 
 
     public void displayInfo() {

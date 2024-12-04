@@ -1,7 +1,5 @@
 package com.hacktheborder.controller;
 
-import com.hacktheborder.utilities.AnimationEffects;
-import com.hacktheborder.ApplicationManager;
 import com.hacktheborder.Main;
 import com.hacktheborder.ApplicationManager.AnimationManager;
 import com.hacktheborder.ApplicationManager.GameControllerManager;
@@ -17,11 +15,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+
 
 
 @SuppressWarnings("exports")
+
 public class DebuggingController {
 
     @FXML
@@ -42,31 +40,25 @@ public class DebuggingController {
     @FXML 
     public Button nextQuestionButton;
 
-    
-
-
-
-
-
 
 
     public void initialize() {
 
-        centerVBox.prefWidthProperty().bind(Main.gameController.centerVBox.widthProperty().multiply(0.7));
+        centerVBox.prefWidthProperty().bind(Main.gameController.centerVBox.widthProperty().multiply(0.8));
         centerVBox.prefHeightProperty().bind(Main.gameController.centerVBox.heightProperty().multiply(0.35));
 
 
-        consoleOutputTextArea.prefWidthProperty().bind(centerVBox.widthProperty());
+        consoleOutputTextArea.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.95));
         consoleOutputTextArea.prefHeightProperty().bind(centerVBox.heightProperty().multiply(0.7));
 
 
-        HBox.setMargin(runButton, new Insets(20));
+        HBox.setMargin(runButton, new Insets(5, 20, 5, 20));
         runButton.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.35));    
         runButton.prefHeightProperty().bind(centerVBox.heightProperty().multiply(0.015)); 
         runButton.setOnAction(e -> writeAndRun());
 
 
-        HBox.setMargin(resetButton, new Insets(20));
+        HBox.setMargin(resetButton, new Insets(5, 20, 5, 20));
         resetButton.prefWidthProperty().bind(centerVBox.widthProperty().multiply(0.35));    
         resetButton.prefHeightProperty().bind(centerVBox.heightProperty().multiply(0.015)); 
         resetButton.setOnAction(e -> reset());
@@ -75,6 +67,7 @@ public class DebuggingController {
         nextQuestionButton.setOnAction(e -> nextQuestion());
 
     }
+
 
 
     public void setTextToDebug(String expectedOutput) {
@@ -96,22 +89,10 @@ public class DebuggingController {
 
 
 
-
-
-
     public void reset() {
         consoleOutputTextArea.setText(null);
         GameControllerManager.resetCodeArea();
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -137,8 +118,10 @@ public class DebuggingController {
                 QuestionManager.updateDebuggingAttempts(javaCodeToWrite, true);
                 TeamManager.updateTeamScore();
                 nextQuestionButton.setVisible(true);
-                runButton.setDisable(true);
-                resetButton.setDisable(true);
+                centerVBox.getChildren().remove(runButton);
+                centerVBox.getChildren().remove(resetButton);
+                //runButton.setDisable(true);
+                //resetButton.setDisable(true);
                 
             } else {
                 QuestionManager.updateDebuggingAttempts(javaCodeToWrite, false);
