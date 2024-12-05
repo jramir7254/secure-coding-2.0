@@ -19,6 +19,29 @@
 
 }
 
+.webview .scroll-bar {
+    -fx-opacity: 0; /* Hide the scrollbar initially */
+    -fx-padding: 0; /* Remove extra padding */
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-pref-width: 6px; /* Narrow scrollbar */
+}
+
+.webview .scroll-bar:hover,
+.webview .scroll-bar:focused {
+    -fx-opacity: 1; /* Show scrollbar when hovered or focused */
+}
+
+.webview .scroll-bar .increment-button,
+.webview .scroll-bar .decrement-button {
+    -fx-opacity: 0; /* Hide increment/decrement buttons */
+}
+
+.webview .scroll-bar .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* Customize thumb color */
+    -fx-background-insets: 2; /* Add some insets for rounded appearance */
+    -fx-background-radius: 3; /* Rounded edges */
+}
+
 
 
 #web-cont {
@@ -73,12 +96,7 @@
 .side-labels {
     -fx-background-color: rgb(235, 149, 166);
     -fx-background-radius: 10px;
-    -fx-pref-width: 150;
-    -fx-max-width:  150;
-    -fx-min-width:  150;
-    -fx-max-height: 25;
-    -fx-min-height: 25;
-    -fx-pref-height: 25;
+
 }
 
 .text-area {
