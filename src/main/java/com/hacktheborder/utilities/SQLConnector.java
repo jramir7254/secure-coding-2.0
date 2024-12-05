@@ -2,35 +2,69 @@ package com.hacktheborder.utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 
 
 public class SQLConnector {
+    private String userName, password;
+
+    // public static void main(String[] args) {
+    //     new SQLConnector();
+    // }
 
     public SQLConnector() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/secure_coding_database",  "newuser", "H@cK3r!?");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/secure_coding_database",  "newuser", "H@ck3R?!");
             System.out.println("connected");
-            
         } catch (Exception e) {
-            System.err.println("could not connect");
+            System.err.println("Exception message from SQLConnector() @ SQLConnector: " + e.getMessage());
+        }
+    }
+
+    public void testConnection() {
+        getProperties();
+        System.out.println(userName + " " + password);
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/secure_coding_database", userName, password)) {
+            if(connection != null)
+                System.out.println("connected");
+
+        } catch (Exception e) {
+            System.err.println("Exception message from testConnection() @SQLConnector: " + e.getMessage());
+           // e.printStackTrace();
+        }
+    }
+
+    
+    public void getProperties() {
+        Properties properties = new Properties();
+        
+
+        try (InputStream input = getClass().getResourceAsStream("/com/hacktheborder/properties/config.properties")) {
+            if (input == null) 
+                System.err.println("Unable to find config.properties");
+            
+            properties.load(input);
+            userName = properties.getProperty("database_user").replace("\"", "");
+            password = properties.getProperty("database_password").replace("\"", "");
+
+        } catch (Exception e) {
+            System.err.println("Exception message from getProperties() @SQLConnector: " + e.getMessage());
+
         }
     }
 }
 
 
-// package com.hacktheborder.utilities;
-
-// import java.io.InputStream;
-// import java.sql.Connection;
-// import java.sql.DriverManager;
-// import java.sql.PreparedStatement;
-// import java.sql.ResultSet;
-// import java.sql.SQLException;
-// import java.util.ArrayList;
-// import java.util.List;
-// import java.util.Properties;
 
 
 // public class SQLConnector {

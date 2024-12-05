@@ -6,6 +6,7 @@ com\hacktheborder\utilities\SQLConnector.class
 com\hacktheborder\ApplicationManager$QuestionManager.class
 com\hacktheborder\controller\MultipleChoiceController.class
 module-info.class
+com\hacktheborder\controller\SettingsController.class
 com\hacktheborder\controller\GameController.class
 com\hacktheborder\utilities\FileManager.class
 com\hacktheborder\model\QuestionHolder.class

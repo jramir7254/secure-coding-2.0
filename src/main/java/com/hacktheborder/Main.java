@@ -9,6 +9,7 @@ import com.hacktheborder.controller.GameController;
 import com.hacktheborder.controller.MainController;
 import com.hacktheborder.controller.MainMenuController;
 import com.hacktheborder.controller.MultipleChoiceController;
+import com.hacktheborder.controller.SettingsController;
 
 import javafx.application.Application;
 
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 
 
 @SuppressWarnings("exports")
+
 public class Main extends Application {
    
         public static Parent main;
@@ -29,6 +31,7 @@ public class Main extends Application {
         public static Node multipleChoice;
         public static Node debugging;
         public static Node endGame;
+        public static Node settingsContainer;
 
         public static MainController mainController;
         public static MainMenuController mainMenuController;
@@ -36,6 +39,7 @@ public class Main extends Application {
         public static MultipleChoiceController multipleChoiceController;
         public static DebuggingController debuggingController;
         public static EndGameScreenController endGameScreenController;
+        public static SettingsController settingsController;
     
         public static void main(String[] args) {
             launch(args);
@@ -45,7 +49,8 @@ public class Main extends Application {
     
         @Override
         public void start(Stage stage) throws Exception {
-            
+           
+          
             loadFXMLResources(); 
             ApplicationManager.initialize();
     
@@ -90,6 +95,10 @@ public class Main extends Application {
                 FXMLLoader endGameScreenLoader = new FXMLLoader(Main.class.getResource("fxml/EndGameScreen.fxml"));
                 endGame = endGameScreenLoader.load();
                 endGameScreenController = endGameScreenLoader.getController();
+
+                FXMLLoader settingsScreenLoader = new FXMLLoader(Main.class.getResource("fxml/SettingsContainer.fxml"));
+                settingsContainer = settingsScreenLoader.load();
+                settingsController = settingsScreenLoader.getController();
 
             System.out.println("FXML files loaded successfully.");
         } catch (IOException e) {

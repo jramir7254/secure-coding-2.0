@@ -7,6 +7,7 @@ import com.hacktheborder.controller.GameController;
 import com.hacktheborder.controller.MainController;
 import com.hacktheborder.controller.MainMenuController;
 import com.hacktheborder.controller.MultipleChoiceController;
+import com.hacktheborder.controller.SettingsController;
 import com.hacktheborder.model.Question;
 import com.hacktheborder.model.QuestionHolder;
 import com.hacktheborder.model.Team;
@@ -28,6 +29,7 @@ public class ApplicationManager {
     private final static Node                       MULIPLE_CHOICE_PANEL            = Main.multipleChoice;
     private final static Node                       DEBUGGING_PANEL                 = Main.debugging;
     private final static Node                       END_GAME_PANEL                  = Main.endGame;
+    public final static Node                       SETTINGS                  = Main.settingsContainer;
 
     private final static MainController             MAIN_CONTROLLER                 = Main.mainController;
     private final static MainMenuController         MAIN_MENU_CONTROLLER            = Main.mainMenuController;
@@ -35,6 +37,7 @@ public class ApplicationManager {
     private final static MultipleChoiceController   MULTIPLE_CHOICE_CONTROLLER      = Main.multipleChoiceController;
     private final static DebuggingController        DEBUGGING_CONTROLLER            = Main.debuggingController;
     private final static EndGameScreenController    END_GAME_SCREEN_CONTROLLER      = Main.endGameScreenController;
+    public final static SettingsController         SETTINGS_CONTROLLER             = Main.settingsController;
 
     private final static QuestionHolder             QUESTION_HOLDER                 = new QuestionHolder();
 

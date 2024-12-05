@@ -45,6 +45,11 @@
     -fx-background-radius: 20;
 }
 
+#center2 {
+    -fx-background-color: rgba(132, 89, 197, 0.8);
+    -fx-background-radius: 20;
+}
+
 #q-field {
     -fx-background-color: rgb(75, 67, 118);
     -fx-background-radius: 10;
