@@ -18,7 +18,9 @@ import javafx.scene.web.WebView;
 
 
 @SuppressWarnings("exports")
+
 public class MainController {
+
     @FXML 
     public BorderPane rootBorderPane;
 
@@ -42,6 +44,9 @@ public class MainController {
 
         @FXML
         public VBox leaderboardVBox;
+
+            @FXML
+            public Label leaderboardLabel;
 
         @FXML
         public VBox informationVBox;
@@ -77,9 +82,15 @@ public class MainController {
 
         leaderboardVBox.prefWidthProperty().bind(rootBorderPane.widthProperty().multiply(0.3));
         leaderboardVBox.prefHeightProperty().bind(rootBorderPane.heightProperty().multiply(0.7));
+
+        leaderboardLabel.prefWidthProperty().bind(leaderboardVBox.widthProperty().multiply(0.65));
+        leaderboardLabel.prefHeightProperty().bind(leaderboardVBox.heightProperty().multiply(0.05));
     
         informationVBox.prefWidthProperty().bind(rootBorderPane.widthProperty().multiply(0.3));
         informationVBox.prefHeightProperty().bind(rootBorderPane.heightProperty().multiply(0.7));
+
+        infoLabel.prefWidthProperty().bind(informationVBox.widthProperty().multiply(0.65));
+        infoLabel.prefHeightProperty().bind(informationVBox.heightProperty().multiply(0.05));
 
         informationGridPaneContainer.prefWidthProperty().bind(informationVBox.widthProperty().multiply(0.95));
         informationGridPaneContainer.prefHeightProperty().bind(informationVBox.heightProperty().multiply(0.9));

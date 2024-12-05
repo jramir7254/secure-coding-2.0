@@ -20,7 +20,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-
 @SuppressWarnings("exports")
 
 public class Main extends Application {
@@ -41,10 +40,10 @@ public class Main extends Application {
         public static EndGameScreenController endGameScreenController;
         public static SettingsController settingsController;
     
+
         public static void main(String[] args) {
             launch(args);
         }
-    
     
     
         @Override
@@ -63,9 +62,6 @@ public class Main extends Application {
         }
     
     
-    
-    
-    
         private void loadFXMLResources() {
             try {
                 System.out.println("Loading FXML files...");
@@ -74,7 +70,6 @@ public class Main extends Application {
                 FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("fxml/Main.fxml"));
                 main = mainLoader.load();
                 mainController = mainLoader.getController();
-                
 
                 FXMLLoader menuLoader = new FXMLLoader(Main.class.getResource("fxml/MainMenu.fxml"));
                 mainMenu = menuLoader.load();

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane id="main-pane" fx:id="rootBorderPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controller.MainController">
+<BorderPane id="main-pane" fx:id="rootBorderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controller.MainController">
    <bottom>
       <HBox id="footer" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </bottom>
@@ -53,7 +53,7 @@
    <left>
       <VBox fx:id="leaderboardVBox" alignment="TOP_CENTER" styleClass="side-panel" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Label alignment="CENTER" styleClass="side-labels" text="Leaderboard Top 5" textFill="WHITE">
+            <Label fx:id="leaderboardLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="side-labels" text="Leaderboard Top 5" textFill="WHITE">
                <effect>
                   <Lighting diffuseConstant="1.6" specularConstant="0.35" specularExponent="23.0" surfaceScale="1.3">
                      <bumpInput>
@@ -70,7 +70,7 @@
    <right>
       <VBox fx:id="informationVBox" alignment="TOP_CENTER" styleClass="side-panel" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Label fx:id="infoLabel" alignment="CENTER" onMouseClicked="#displayInfo" styleClass="side-labels" text="Information" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+            <Label fx:id="infoLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#displayInfo" styleClass="side-labels" text="Information" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

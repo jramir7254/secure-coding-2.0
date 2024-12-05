@@ -64,9 +64,9 @@ public class MultipleChoiceController {
         for (Node node : buttonVBoxContainer.getChildren()) {
             if (node instanceof ToggleButton) {
                 ToggleButton button = (ToggleButton) node; 
+                VBox.setMargin(button, new Insets(10, 0, 10, 0));
                 button.prefWidthProperty().bind(buttonVBoxContainer.widthProperty().multiply(0.5));      
                 button.prefHeightProperty().bind(buttonVBoxContainer.heightProperty().multiply(0.01));   
-                VBox.setMargin(button, new Insets(10, 0, 10, 0));
             }
         }
 
