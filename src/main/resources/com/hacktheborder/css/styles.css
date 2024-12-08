@@ -22,7 +22,7 @@
 .webview .scroll-bar {
     -fx-opacity: 0; /* Hide the scrollbar initially */
     -fx-padding: 0; /* Remove extra padding */
-    -fx-background-color: transparent; /* Transparent background */
+    -fx-background-color: black; /* Transparent background */
     -fx-pref-width: 6px; /* Narrow scrollbar */
 }
 
@@ -101,6 +101,8 @@
 .side-labels {
     -fx-background-color: rgb(235, 149, 166);
     -fx-background-radius: 10px;
+    -fx-text-fill: #FFFFFF;  
+    -fx-margin-top: 5px;
 
 }
 

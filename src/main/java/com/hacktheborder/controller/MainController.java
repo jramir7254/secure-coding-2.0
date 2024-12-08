@@ -3,11 +3,15 @@ package com.hacktheborder.controller;
 
 
 import java.net.URL;
+import java.util.List;
+
+
 
 import com.hacktheborder.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -98,9 +102,27 @@ public class MainController {
         informationWebView.prefWidthProperty().bind(informationGridPaneContainer.widthProperty());
         informationWebView.prefHeightProperty().bind(informationGridPaneContainer.heightProperty());
 
+
         loadInformationWebViewContent();
         Platform.runLater(() -> addCenter(Main.mainMenu));
         
+    }
+
+    public void updateLeaderBoard(List<String[]> list) {
+
+       leaderboardVBox.getChildren().clear();
+    
+        leaderboardVBox.getChildren().add(leaderboardLabel);
+        
+        for(String[] team : list) {
+            leaderboardVBox.getChildren().add(new Label(team[0] + " : " + team[1]) {{
+                getStyleClass().add("side-labels");
+                prefWidthProperty().bind(leaderboardLabel.widthProperty());
+                prefHeightProperty().bind(leaderboardLabel.heightProperty());
+                setPadding(new Insets(5,0,5,0));
+                setAlignment(Pos.CENTER);
+            }});
+        }
     }
 
 

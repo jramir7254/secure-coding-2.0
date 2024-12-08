@@ -10,11 +10,16 @@ import com.hacktheborder.controller.MultipleChoiceController;
 import com.hacktheborder.controller.SettingsController;
 import com.hacktheborder.model.Question;
 import com.hacktheborder.model.QuestionHolder;
+import com.hacktheborder.model.Settings;
 import com.hacktheborder.model.Team;
 import com.hacktheborder.utilities.AnimationEffects;
+import com.hacktheborder.utilities.SQLConnector;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.util.Duration;
 
 
 @SuppressWarnings("exports")
@@ -47,6 +52,8 @@ public class ApplicationManager {
     private static       Question                   currentQuestion;
     private static       Team                       currentTeam;
 
+    public static Settings settings = new Settings();
+
 
 
     public static void onMainMenuSubmitButtonPressed() {
@@ -57,8 +64,52 @@ public class ApplicationManager {
     public static void initialize() {
         
         currentQuestion = QUESTION_HOLDER.getNextQuestion();
-        AnimationEffects.initialize();
+        AnimationEffects.initialize(settings);
     }
+
+
+    public static void updateSettings(Settings newSettings) {
+        settings = newSettings;
+        AnimationEffects.initialize(settings);
+        System.out.println(settings);
+        if(settings.isOnlineGame()) {
+            updateLeaderBoard();
+        }
+    }
+
+
+    public static void updateLeaderBoard() {
+        Timeline timeline = new Timeline(
+            new KeyFrame(Duration.seconds(10), event -> {
+                MAIN_CONTROLLER.updateLeaderBoard(new SQLConnector().getTopFive());
+            })
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE); 
+        timeline.play();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -110,6 +161,23 @@ public class ApplicationManager {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static class TeamManager {
 
         public static void setupCurrentTeam(String teamName) {
@@ -134,6 +202,20 @@ public class ApplicationManager {
             System.out.println(currentTeam.currentTeamData);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -163,6 +245,24 @@ public class ApplicationManager {
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -207,6 +307,28 @@ public class ApplicationManager {
         }
         
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

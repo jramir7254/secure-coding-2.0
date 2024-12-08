@@ -3,6 +3,7 @@ package com.hacktheborder.utilities;
 
 
 import com.hacktheborder.Main;
+import com.hacktheborder.model.Settings;
 import com.hacktheborder.ApplicationManager.TeamManager;
 
 import javafx.animation.KeyFrame;
@@ -19,8 +20,11 @@ import javafx.util.Duration;
 
 public class AnimationEffects {
     private static int score;
+    private static int points;
     private static int questionTimeInSeconds;
     private static int totalTimeInSeconds;
+    private static int penaltyAmount;
+    private static int changeInTime;
 
     public static Label scoreLabel = Main.gameController.questionScoreLabel;
     public static Label questionTimeLabel = Main.mainController.questionTimeLabel;
@@ -33,7 +37,7 @@ public class AnimationEffects {
 
 
     public static void animateUpdatedTeamScore(int newScore) {
-        String newText = String.format("Current Score: %d +(%d)", newScore, score + 1);
+        String newText = String.format("Current Score: %d +(%d)", newScore, points + 1);
         currentScore.setText(newText);
         playShakeEffect(currentScore, "#24e327", true, true);
 
@@ -41,19 +45,27 @@ public class AnimationEffects {
 
 
     public static int getCurrentQuestionScore() {
-        return score;
+        return points;
     }
 
 
-    public static void initialize() {
-        score = 100;
+    public static void initialize(Settings settings) {
+        score = settings.getPointsPerQuestion();
+        points = score;
+        penaltyAmount = settings.getPenaltyAmount();
         questionTimeInSeconds = 0;
-        totalTimeInSeconds = 0;
+        totalTimeInSeconds = settings.getTimeLimit();
+
+        if(settings.isTimeLimitEnabled()) {
+            changeInTime = -1;
+        } else {
+            changeInTime = 1;
+        }
 
 
         questionScore = new Timeline(
             new KeyFrame(Duration.seconds(1), event -> {
-                scoreLabel.setText("Question Score: " + ( score-- ));
+                scoreLabel.setText("Question Score: " + ( points-- ));
             })
         );
         questionScore.setCycleCount(Timeline.INDEFINITE); 
@@ -69,7 +81,8 @@ public class AnimationEffects {
 
         totalTimeTimeline = new Timeline(
             new KeyFrame(Duration.seconds(1), event -> {
-                totalTimeLabel.setText("Total Time: " + formatTime( totalTimeInSeconds++ ));
+                totalTimeLabel.setText("Total Time: " + formatTime( totalTimeInSeconds ));
+                totalTimeInSeconds += changeInTime;
             })
         );
         totalTimeTimeline.setCycleCount(Timeline.INDEFINITE); 
@@ -93,7 +106,7 @@ public class AnimationEffects {
     public static void stopAndResetQuestionAndScoreTimelines() {
         questionTimeTimeline.stop();
         questionScore.stop();
-        score = 100;
+        points = score;
         questionTimeInSeconds = 0; 
     }
 
@@ -106,14 +119,14 @@ public class AnimationEffects {
 
     public static void startQuestionScoreTimeline() {
         currentScore.setText("Current Score: " + TeamManager.getCurrentTeam().getCurrentGameScore());
-        scoreLabel.setText("Question Score: 100");
+        scoreLabel.setText("Question Score: " + score);
         questionScore.jumpTo(Duration.seconds(1));
         questionScore.play();
     }
 
 
     public static void resetQuestionScoreTimeline() {
-        score = 100;
+        points = score;
     }
 
 
@@ -145,8 +158,9 @@ public class AnimationEffects {
 
 
     public static void wrongAnswerPenalty() {
-        score -= 10;
-        scoreLabel.setText("Question Score: " + score + " (-10)");
+        points -= penaltyAmount;
+        String s = String.format("Question Score: %d (-%d)", points, penaltyAmount);
+        scoreLabel.setText(s);
         playShakeEffect(scoreLabel, "#e3210b", false, true);
 
     }

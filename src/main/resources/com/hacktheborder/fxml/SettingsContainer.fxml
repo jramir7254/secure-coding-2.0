@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,31 +13,33 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox id="center2" fx:id="settings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controller.SettingsController">
+<VBox id="center2" fx:id="settingsVBoxContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hacktheborder.controller.SettingsController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <PasswordField fx:id="passwordField" />
-            <Button fx:id="submitPassword" mnemonicParsing="false" styleClass="buttons" text="Button" />
+            <Button fx:id="submitPasswordButton" mnemonicParsing="false" styleClass="buttons" text="Button" />
          </children>
       </HBox>
+      <Separator prefWidth="200.0" />
       <Label text="Local/Online" />
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ChoiceBox fx:id="choiceBox" disable="true" prefWidth="150.0" />
-            <Button fx:id="tryButton" disable="true" mnemonicParsing="false" text="Try Connection" />
+            <ChoiceBox fx:id="gameNetworkTypeChoiceBox" disable="true" prefWidth="150.0" />
+            <Button fx:id="connectButton" disable="true" mnemonicParsing="false" text="Try Connection" />
          </children>
       </HBox>
+      <Separator prefWidth="200.0" />
       <Label text="Timer Settings" />
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ChoiceBox fx:id="timerChoice" disable="true" prefWidth="150.0" />
-            <Spinner fx:id="timeAmount" disable="true" editable="true" />
+            <ChoiceBox fx:id="enableTimeLimitChoiceBox" disable="true" prefWidth="150.0" />
+            <Spinner fx:id="gameTimeLimitAmountSpinner" disable="true" editable="true" />
          </children>
       </HBox>
+      <Separator prefWidth="200.0" />
       <Label text="Score Settings" />
-      <GridPane fx:id="score" disable="true">
+      <GridPane fx:id="scoringSettingsGridPane" disable="true">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,12 +49,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Spinner fx:id="points" GridPane.rowIndex="1" />
+            <Spinner fx:id="pointsPerQuestionSpinner" editable="true" GridPane.rowIndex="1" />
             <Label alignment="CENTER" text="Points Per Question" />
             <Label alignment="CENTER" text="Penalty Amount" GridPane.columnIndex="1" />
-            <Spinner fx:id="penalty" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Spinner fx:id="penaltyAmountSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
+      <Separator prefWidth="200.0" />
+      <Label text="Allow Replay" />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ChoiceBox fx:id="allowReplayChoiceBox" disable="true" prefWidth="150.0" />
+         </children>
+      </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Button fx:id="saveSettingsButton" disable="true" mnemonicParsing="false" styleClass="buttons" text="Save Changes" />

@@ -64,6 +64,7 @@ public class Main extends Application {
     
         private void loadFXMLResources() {
             try {
+
                 System.out.println("Loading FXML files...");
     
                 // Use a single FXMLLoader for each FXML
@@ -96,8 +97,11 @@ public class Main extends Application {
                 settingsController = settingsScreenLoader.getController();
 
             System.out.println("FXML files loaded successfully.");
+
         } catch (IOException e) {
+
             e.printStackTrace();
+            
         }
     }
 }

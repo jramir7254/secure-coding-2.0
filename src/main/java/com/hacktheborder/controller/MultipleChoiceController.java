@@ -23,6 +23,7 @@ import javafx.scene.layout.VBox;
 
 
 @SuppressWarnings("exports")
+
 public class MultipleChoiceController {
     @FXML
     public VBox buttonVBoxContainer;
@@ -77,6 +78,7 @@ public class MultipleChoiceController {
         nextSectionButton.prefHeightProperty().bind(buttonVBoxContainer.heightProperty().multiply(0.01)); 
 
         nextSectionButton.setOnAction(e -> nextSection());
+
 
         submitButton.prefWidthProperty().bind(buttonVBoxContainer.widthProperty().multiply(0.5));    
         submitButton.prefHeightProperty().bind(buttonVBoxContainer.heightProperty().multiply(0.010));   

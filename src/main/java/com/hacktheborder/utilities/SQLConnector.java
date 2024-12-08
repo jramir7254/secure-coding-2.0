@@ -2,49 +2,111 @@ package com.hacktheborder.utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 
 
 public class SQLConnector {
     private String userName, password;
+    private static String url;
 
     // public static void main(String[] args) {
     //     new SQLConnector();
     // }
 
+
+
     public SQLConnector() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/secure_coding_database",  "newuser", "H@ck3R?!");
-            System.out.println("connected");
         } catch (Exception e) {
             System.err.println("Exception message from SQLConnector() @ SQLConnector: " + e.getMessage());
         }
     }
 
-    public void testConnection() {
+
+
+    public boolean testConnection(){
+        String ip = "127.0.0.1";
+        return testConnection(ip);
+    }
+
+
+    public boolean testConnection(String ip)  {
+
+        String manualURL = String.format("jdbc:mysql://%s:3306/secure_coding_database", ip);
         getProperties();
-        System.out.println(userName + " " + password);
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/secure_coding_database", userName, password)) {
-            if(connection != null)
+
+        System.out.println(userName + " " + password + " " + manualURL);
+
+        try (Connection connection = DriverManager.getConnection(manualURL, userName, password)) {
+
+            if(connection != null) {
+                url = manualURL;
                 System.out.println("connected");
+            }
+
+            return true;
 
         } catch (Exception e) {
+
             System.err.println("Exception message from testConnection() @SQLConnector: " + e.getMessage());
-           // e.printStackTrace();
+
+            Alert sqlConnectionErr = new Alert(AlertType.ERROR, "Could Not Connect to MYSQL Database.", 
+                new ButtonType("Retry"), new ButtonType("Manual Retry"), new ButtonType("Cancel"));
+   
+            Optional<ButtonType> result = sqlConnectionErr.showAndWait();
+         
+            if(result.isEmpty()) 
+                return false;
+
+            switch (result.get().getText()) {
+                case "Retry": testConnection();
+                    break;
+                case "Manual Retry" : manualIPEntry();
+                    break;
+                case "Cancel" : return false;
+            }
+
+            return true;
         }
     }
 
+
+
+
+    public void manualIPEntry() {
+        new TextInputDialog() {{
+            setTitle("Manual Database Connection");
+            setHeaderText("Enter the IP Address.");
+            setContentText("IP Address:");
+            showAndWait().ifPresent(ip -> {
+     
+                testConnection(ip);
     
+            });
+        }};
+    }
+
+    
+
+
+
+
     public void getProperties() {
         Properties properties = new Properties();
         
@@ -54,12 +116,44 @@ public class SQLConnector {
                 System.err.println("Unable to find config.properties");
             
             properties.load(input);
-            userName = properties.getProperty("database_user").replace("\"", "");
-            password = properties.getProperty("database_password").replace("\"", "");
+            userName = properties.getProperty("database_user");
+            password = properties.getProperty("database.password");
 
         } catch (Exception e) {
             System.err.println("Exception message from getProperties() @SQLConnector: " + e.getMessage());
 
+        }
+    }
+
+
+    public List<String[]> getTopFive() {
+
+            getProperties();
+            System.out.println(userName + " " + password + " " + url);
+    
+            String query = "SELECT * FROM TEAMS ORDER BY Team_High_Score DESC LIMIT 5";
+
+        try (Connection connection = DriverManager.getConnection(url, userName, password);
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+  
+
+            List<String[]> topTeams = new ArrayList<>();
+
+            while (resultSet.next()) {
+                String teamName = resultSet.getString("Team_Name");
+                int teamScore = resultSet.getInt("Team_High_Score");
+                topTeams.add(new String[] {teamName, teamScore +""});
+            }
+
+            System.out.println(topTeams);
+
+            return topTeams;
+
+        } catch (Exception e) {
+            System.err.println("Exception message from getTopFive() @SQLConnector: " + e.getMessage());
+            return null;
+            
         }
     }
 }
@@ -129,31 +223,7 @@ public class SQLConnector {
 //     }
 
 
-//     public List<String[]> getTopFive() {
-//         try {
-//             String query = "SELECT * FROM TEAMS ORDER BY Team_High_Score DESC LIMIT 5";
-//             statement = connection.prepareStatement(query);
-//             resultSet = statement.executeQuery();
 
-//             List<String[]> topTeams = new ArrayList<>();
-//             while (resultSet.next()) {
-//                 String teamName = resultSet.getString("Team_Name");
-//                 int teamScore = resultSet.getInt("Team_High_Score");
-//                 topTeams.add(new String[] {teamName, teamScore +""});
-//             }
-//             return topTeams;
-//         } catch (Exception e) {
-//             return null;
-//         } finally {
-//             try {
-//                 resultSet.close();
-//                 statement.close();
-//                 connection.close();
-//             } catch (Exception e) {
-//                 System.err.println("Error");
-//             }
-//         }
-//     }
 
 
 //     public void updateTeamCurrentScore(int score, String teamName) {
